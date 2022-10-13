@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Diff } from "./components/diff";
 
+const options = ["5.2.1", "5.2.2", "5.2.3", "5.2.4"];
+
 export function App() {
   const [diff, setDiff] = useState<string | null>(null);
 
-  const [oldVersion, setOldVersion] = useState("5.2.2");
+  const [oldVersion, setOldVersion] = useState("5.2.1");
   const [newVersion, setNewVersion] = useState("5.2.4");
 
   useEffect(() => {
@@ -20,16 +22,23 @@ export function App() {
 
   return (
     <div>
-      <input
-        type="text"
+      <select
         value={oldVersion}
         onChange={(event) => setOldVersion(event.target.value)}
-      />
-      <input
-        type="text"
+      >
+        {options.map((option) => (
+          <option value={option}>{option}</option>
+        ))}
+      </select>
+
+      <select
         value={newVersion}
         onChange={(event) => setNewVersion(event.target.value)}
-      />
+      >
+        {options.map((option) => (
+          <option value={option}>{option}</option>
+        ))}
+      </select>
 
       {diff && <Diff diff={diff} />}
     </div>
