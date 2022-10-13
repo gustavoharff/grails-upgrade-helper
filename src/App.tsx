@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Diff } from "./components/diff";
 
-const options = ["5.2.1", "5.2.2", "5.2.3", "5.2.4"];
+const options = ["5.1.9", "5.2.0","5.2.1", "5.2.2", "5.2.3", "5.2.4"];
 
 export function App() {
   const [diff, setDiff] = useState<string | null>(null);
