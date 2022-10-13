@@ -4,6 +4,8 @@ import { App } from './App'
 
 import './styles.css'
 
+import 'antd/dist/antd.css';
+
 import "react-diff-view/style/index.css";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

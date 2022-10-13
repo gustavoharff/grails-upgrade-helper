@@ -1,25 +1,33 @@
+import { DiffType, FileDiffType } from "./diff-type";
+
 interface DiffHeaderProps {
-  type: string;
+  type: FileDiffType;
   newPath: string;
   oldPath: string;
+  hasDiff: boolean;
 }
 
 export function DiffHeader({ newPath, oldPath, type }: DiffHeaderProps) {
   const fileName = () => {
     if (type === "delete") {
-      return <span>{oldPath}</span>;
+      return <span>{oldPath?.replace("myapp/", "")}</span>;
     }
 
     if (oldPath !== newPath && type !== "add") {
       return (
         <span>
-          {oldPath} `{">"}` {newPath}
+          {oldPath?.replace("myapp/", "")} `{">"}`{" "}
+          {newPath?.replace("myapp/", "")}
         </span>
       );
     }
 
-    return <span>{newPath}</span>;
+    return <span>{newPath?.replace("myapp/", "")}</span>;
   };
 
-  return <div className="diff-header">{fileName()}</div>;
+  return (
+    <div className="diff-header">
+      {fileName()} <DiffType type={type} />
+    </div>
+  );
 }

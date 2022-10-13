@@ -37,7 +37,9 @@ export function App() {
         onChange={(event) => setOldVersion(event.target.value)}
       >
         {versions.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </select>
 
@@ -46,7 +48,9 @@ export function App() {
         onChange={(event) => setNewVersion(event.target.value)}
       >
         {versions.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </select>
 
