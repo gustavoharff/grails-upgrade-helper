@@ -1,9 +1,9 @@
 import { Tag, TagProps } from "antd";
 
-export type FileDiffType = "add" | "modify" | "delete" | "deleted" | "rename";
+import { FileDiffType } from "../../types";
 
 interface DiffTypeProps extends TagProps {
-  type: FileDiffType;
+  readonly type: FileDiffType;
 }
 
 export function DiffType({ type, ...props }: DiffTypeProps) {
