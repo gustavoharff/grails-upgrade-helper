@@ -1,0 +1,11 @@
+.diff-header {
+  padding: 5px 10px;
+  background-color: rgb(250, 251, 252);
+  border-bottom: 1px solid rgb(225, 228, 232);
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.diff-header span {
+  font-family: Arial, Helvetica, sans-serif;
+}
