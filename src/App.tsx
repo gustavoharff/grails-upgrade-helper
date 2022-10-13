@@ -25,6 +25,7 @@ export function App() {
   useEffect(() => {
     if (!oldVersion || !newVersion) {
       setDiff(null);
+      return
     }
 
     axios
