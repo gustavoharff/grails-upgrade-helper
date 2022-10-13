@@ -2,18 +2,28 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Diff } from "./components/diff";
 
-const options = ["5.1.9", "5.2.0", "5.2.1", "5.2.2", "5.2.3", "5.2.4"];
-
 export function App() {
   const [diff, setDiff] = useState<string | null>(null);
+
+  const [versions, setVersions] = useState<string[]>([]);
 
   const [oldVersion, setOldVersion] = useState("5.1.9");
   const [newVersion, setNewVersion] = useState("5.2.4");
 
   useEffect(() => {
     axios
+      .get<string>(
+        "https://raw.githubusercontent.com/gustavoharff/grails-diffs/main/RELEASES"
+      )
+      .then((response) => {
+        setVersions(response.data.split("\n").filter((v) => v));
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
       .get(
-        `https://raw.githubusercontent.com/gustavoharff/grails-upgrade-helper/diffs/diffs/${oldVersion}..${newVersion}.diff`
+        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${oldVersion}..${newVersion}.diff`
       )
       .then((response) => {
         setDiff(response.data);
@@ -26,7 +36,7 @@ export function App() {
         value={oldVersion}
         onChange={(event) => setOldVersion(event.target.value)}
       >
-        {options.map((option) => (
+        {versions.map((option) => (
           <option value={option}>{option}</option>
         ))}
       </select>
@@ -35,7 +45,7 @@ export function App() {
         value={newVersion}
         onChange={(event) => setNewVersion(event.target.value)}
       >
-        {options.map((option) => (
+        {versions.map((option) => (
           <option value={option}>{option}</option>
         ))}
       </select>
