@@ -21,7 +21,6 @@ export function Diff(props: DiffProps) {
 
   return files.map((file: any) => (
     <div
-      key={`${file.oldRevision}${file.newRevision}`}
       className={styles.diffContainer}
     >
       <DiffHeader

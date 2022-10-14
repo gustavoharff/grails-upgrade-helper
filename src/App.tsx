@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ShowMeButton } from "./components/button";
 import { Diff } from "./components/diff";
 
-import { VersionInput } from "./components/version-input/input";
+import { VersionInput, TypeInput, ProfileInput } from "./components/input";
 
 export function App() {
   const [diff, setDiff] = useState<string | null>(null);
 
-  const [versions, setVersions] = useState<string[]>([]);
+  const [versions, setVersions] = useState<Set<string>>(new Set());
 
+  const [oldType, setOldType] = useState("app");
+  const [oldProfile, setOldProfile] = useState("web");
+  const [newType, setNewType] = useState("app");
+  const [newProfile, setNewProfile] = useState("web");
   const [oldVersion, setOldVersion] = useState<string | null>("");
   const [newVersion, setNewVersion] = useState<string | null>("");
 
@@ -18,42 +23,92 @@ export function App() {
         "https://raw.githubusercontent.com/gustavoharff/grails-diffs/main/RELEASES"
       )
       .then((response) => {
-        setVersions(response.data.split("\n").filter((v) => v));
+        setVersions(
+          new Set(
+            response.data
+              .split("\n")
+              .filter((v) => v)
+              .map((v) =>
+                v
+                  .replace("web", "")
+                  .replace("rest-api", "")
+                  .replace("app", "")
+                  .replace("plugin", "")
+                  .replaceAll("-", "")
+              )
+          )
+        );
       });
   }, []);
 
-  useEffect(() => {
+  async function submit() {
     if (!oldVersion || !newVersion) {
       setDiff(null);
-      return
+      return;
     }
 
-    axios
-      .get(
-        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${oldVersion}..${newVersion}.diff`
-      )
-      .then((response) => {
-        setDiff(response.data);
-      });
-  }, [oldVersion, newVersion]);
+    try {
+      const response = await axios.get(
+        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${oldVersion}-${oldProfile}-${oldType}..${newVersion}-${newProfile}-${newType}.diff`
+      );
+
+      setDiff(response.data);
+    } catch (error) {
+      setDiff(null);
+    }
+  }
 
   return (
     <div style={{ padding: 16 }}>
       <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
-        <VersionInput
-          label="What's your current Grails version?"
-          selectedVersion={oldVersion}
-          versions={versions}
-          onChange={setOldVersion}
-        />
+        <div>
+          <VersionInput
+            label="What's your current Grails version?"
+            selectedVersion={oldVersion}
+            versions={versions}
+            onChange={setOldVersion}
+          />
 
-        <VersionInput
-          label="Which version would you like to upgrade to?"
-          selectedVersion={newVersion}
-          versions={versions}
-          onChange={setNewVersion}
-        />
+          <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+            <TypeInput
+              label="Current Grails type?"
+              selectedType={oldType}
+              onChange={setOldType}
+            />
+
+            <ProfileInput
+              label="Current Grails profile?"
+              selectedProfile={oldProfile}
+              onChange={setOldProfile}
+            />
+          </div>
+        </div>
+
+        <div>
+          <VersionInput
+            label="Which version would you like to upgrade to?"
+            selectedVersion={newVersion}
+            versions={versions}
+            onChange={setNewVersion}
+          />
+
+          <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+            <TypeInput
+              label="New Grails type:"
+              selectedType={newType}
+              onChange={setNewType}
+            />
+
+            <ProfileInput
+              label="New Grails profile:"
+              selectedProfile={newProfile}
+              onChange={setNewProfile}
+            />
+          </div>
+        </div>
       </div>
+
+      <ShowMeButton onClick={submit} />
 
       <div style={{ marginTop: 16 }}>{diff && <Diff diff={diff} />}</div>
     </div>

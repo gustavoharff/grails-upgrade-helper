@@ -2,7 +2,7 @@ import styles from "./input.module.css";
 
 interface VersionInputProps {
   readonly label: string;
-  readonly versions: string[];
+  readonly versions: Set<string>;
   readonly selectedVersion: string | null;
   readonly onChange: (value: string) => void;
 }
@@ -22,7 +22,7 @@ export function VersionInput({
         onChange={(event) => onChange(event.target.value)}
       >
         <option value="">None</option>
-        {versions.map((version) => (
+        {Array.from(versions).map((version) => (
           <option key={version} value={version}>
             {version}
           </option>
