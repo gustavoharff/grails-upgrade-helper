@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ShowMeButton } from "./components/button";
-import { Diff } from "./components/diff";
+import { Diffs } from "./components/diff";
 
 import { VersionInput, TypeInput, ProfileInput } from "./components/input";
 
@@ -14,8 +14,8 @@ export function App() {
   const [oldProfile, setOldProfile] = useState("web");
   const [newType, setNewType] = useState("app");
   const [newProfile, setNewProfile] = useState("web");
-  const [oldVersion, setOldVersion] = useState<string | null>("");
-  const [newVersion, setNewVersion] = useState<string | null>("");
+  const [oldVersion, setOldVersion] = useState<string>("");
+  const [newVersion, setNewVersion] = useState<string>("");
 
   useEffect(() => {
     axios
@@ -69,7 +69,14 @@ export function App() {
             onChange={setOldVersion}
           />
 
-          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 16 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 16,
+              marginTop: 16,
+            }}
+          >
             <TypeInput
               label="Current Grails type?"
               selectedType={oldType}
@@ -92,7 +99,14 @@ export function App() {
             onChange={setNewVersion}
           />
 
-          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 16 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 16,
+              marginTop: 16,
+            }}
+          >
             <TypeInput
               label="New Grails type:"
               selectedType={newType}
@@ -110,7 +124,16 @@ export function App() {
 
       <ShowMeButton onClick={submit} />
 
-      <div style={{ marginTop: 16 }}>{diff && <Diff diff={diff} />}</div>
+      <div style={{ marginTop: 16 }}>
+        {diff && (
+          <Diffs
+            newProfile={newProfile}
+            newType={newType}
+            newVersion={newVersion}
+            diff={diff}
+          />
+        )}
+      </div>
     </div>
   );
 }
