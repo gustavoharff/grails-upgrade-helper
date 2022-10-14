@@ -69,7 +69,7 @@ export function App() {
             onChange={setOldVersion}
           />
 
-          <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 16 }}>
             <TypeInput
               label="Current Grails type?"
               selectedType={oldType}
@@ -92,7 +92,7 @@ export function App() {
             onChange={setNewVersion}
           />
 
-          <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 16 }}>
             <TypeInput
               label="New Grails type:"
               selectedType={newType}

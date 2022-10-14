@@ -1,3 +1,4 @@
+import { Select } from "../select";
 import styles from "./input.module.css";
 
 interface ProfileInputProps {
@@ -13,15 +14,13 @@ export function ProfileInput({
 }: ProfileInputProps) {
   return (
     <div className={styles.container}>
-      {label}
-      <select
-        className={styles.input}
+      <Select
+        title={label}
         value={selectedProfile}
-        onChange={(event) => onChange(event.target.value)}
-      >
-        <option value="web">web</option>
-        <option value="rest-api">rest-api</option>
-      </select>
+        onChange={onChange}
+        options={["web", "rest-api"]}
+        defaultValue="web"
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Select } from "../select";
 import styles from "./input.module.css";
 
 interface VersionInputProps {
@@ -15,19 +16,12 @@ export function VersionInput({
 }: VersionInputProps) {
   return (
     <div className={styles.container}>
-      {label}
-      <select
-        className={styles.input}
+      <Select 
+        title={label}
         value={selectedVersion ?? undefined}
-        onChange={(event) => onChange(event.target.value)}
-      >
-        <option value="">None</option>
-        {Array.from(versions).map((version) => (
-          <option key={version} value={version}>
-            {version}
-          </option>
-        ))}
-      </select>
+        onChange={onChange}
+        options={Array.from(versions)}
+      />
     </div>
   );
 }
