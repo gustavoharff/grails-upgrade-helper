@@ -11,7 +11,7 @@ interface DiffHeaderProps {
 
 export function DiffHeader({ newPath, oldPath, type }: DiffHeaderProps) {
   function getPathWithouAppName(path?: string) {
-    return path?.replace("myapp/", "");
+    return path?.replace("myapp/", "").replace("myplugin/", "");
   }
 
   function getPath() {
