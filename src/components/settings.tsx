@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
-import { Popover, Button, Radio } from 'antd'
+import { Button, Popover, Radio } from 'antd'
 import { useState } from 'react'
 
 const SettingsButton = styled(Button)`
   color: initial;
-  /* margin-left: auto; */
   margin-bottom: 16px;
 `
 

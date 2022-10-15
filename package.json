@@ -38,6 +38,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "typescript": "*",

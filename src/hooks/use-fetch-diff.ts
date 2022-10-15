@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useCallback, useState } from 'react'
+
 import { DIFFS_REPO_URL } from '../constants'
 
 interface UseFetchDiffProps {

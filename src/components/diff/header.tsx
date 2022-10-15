@@ -1,10 +1,10 @@
-import { DiffType } from './type'
-
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
-import styles from './header.module.css'
 import styled from '@emotion/styled'
 import { ButtonProps, Tag, TagProps } from 'antd'
 import { File } from 'react-diff-view'
+
+import styles from './header.module.css'
+import { DiffType } from './type'
 
 interface DiffHeaderProps {
   readonly type: File['type']

@@ -1,17 +1,17 @@
 import React, { Fragment, useState } from 'react'
 import {
-  parseDiff,
-  Diff as RDiff,
-  Hunk,
   Decoration,
-  markEdits,
-  tokenize,
+  Diff as RDiff,
+  File,
+  Hunk,
   HunkType,
-  File
+  markEdits,
+  parseDiff,
+  tokenize
 } from 'react-diff-view'
-import { DiffHeader } from './header'
 
 import styles from './diff.module.css'
+import { DiffHeader } from './header'
 
 interface DiffsProps {
   readonly diff: string

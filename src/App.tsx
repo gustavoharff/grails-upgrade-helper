@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import semver from 'semver'
+
 import { ShowMeButton } from './components/button'
 import { Diffs } from './components/diff'
 import { Header } from './components/header'
 import { Page } from './components/page'
 import { Settings } from './components/settings'
-
 import { VersionSection } from './components/version-section'
 import { useFetchDiff } from './hooks/use-fetch-diff'
 import { useFetchVersions } from './hooks/use-fetch-versions'
