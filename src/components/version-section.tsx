@@ -8,7 +8,8 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  border: 1px solid #3333;
+  border-radius: 3px;
+  border: 1px solid #e8e8e8;
   padding: 32px;
 `
 

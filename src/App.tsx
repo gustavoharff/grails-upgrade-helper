@@ -3,17 +3,19 @@ import { useState } from 'react'
 import semver from 'semver'
 import { ShowMeButton } from './components/button'
 import { Diffs } from './components/diff'
+import { Header } from './components/header'
+import { Page } from './components/page'
 
 import { VersionSection } from './components/version-section'
 import { useFetchDiff } from './hooks/use-fetch-diff'
 import { useFetchVersions } from './hooks/use-fetch-versions'
 
 export function App() {
-  const [fromVersion, setFromVersion] = useState<string>('')
+  const [fromVersion, setFromVersion] = useState('')
   const [fromType, setFromType] = useState('app')
   const [fromProfile, setFromProfile] = useState('web')
 
-  const [toVersion, setToVersion] = useState<string>('')
+  const [toVersion, setToVersion] = useState('')
   const [toType, setToType] = useState('app')
   const [toProfile, setToProfile] = useState('web')
 
@@ -44,46 +46,50 @@ export function App() {
     setToVersion(version)
   }
 
+  console.log('render')
+
   return (
-    <div style={{ padding: 16 }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 16
-        }}
-      >
-        <VersionSection
-          versionTitle="From Grails version"
-          versions={versions}
-          version={fromVersion}
-          onVersionChange={onFromVersionChange}
-          typeTitle="Application type"
-          type={fromType}
-          onTypeChange={setFromType}
-          profileTitle="Application profile"
-          profile={fromProfile}
-          onProfileChange={setFromProfile}
-        />
+    <Page>
+      <Header>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 16
+          }}
+        >
+          <VersionSection
+            versionTitle="From Grails version"
+            versions={versions}
+            version={fromVersion}
+            onVersionChange={onFromVersionChange}
+            typeTitle="Application type"
+            type={fromType}
+            onTypeChange={setFromType}
+            profileTitle="Application profile"
+            profile={fromProfile}
+            onProfileChange={setFromProfile}
+          />
 
-        <RightOutlined />
+          <RightOutlined />
 
-        <VersionSection
-          versionTitle="To Grails version"
-          versions={versions}
-          version={toVersion}
-          onVersionChange={onToVersionChange}
-          typeTitle="Application type"
-          type={toType}
-          onTypeChange={setToType}
-          profileTitle="Application profile"
-          profile={toProfile}
-          onProfileChange={setToProfile}
-        />
-      </div>
+          <VersionSection
+            versionTitle="To Grails version"
+            versions={versions}
+            version={toVersion}
+            onVersionChange={onToVersionChange}
+            typeTitle="Application type"
+            type={toType}
+            onTypeChange={setToType}
+            profileTitle="Application profile"
+            profile={toProfile}
+            onProfileChange={setToProfile}
+          />
+        </div>
 
-      <ShowMeButton onClick={fetch} loading={isFetching} />
+        <ShowMeButton onClick={fetch} loading={isFetching} />
+      </Header>
 
       <div style={{ marginTop: 16 }}>
         {diff && (
@@ -95,6 +101,6 @@ export function App() {
           />
         )}
       </div>
-    </div>
+    </Page>
   )
 }
