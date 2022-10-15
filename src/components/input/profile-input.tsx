@@ -5,13 +5,19 @@ interface ProfileInputProps {
   readonly label: string;
   readonly selectedProfile: string;
   readonly onChange: (value: string) => void;
+  readonly visible?: boolean;
 }
 
 export function ProfileInput({
- selectedProfile,
+  selectedProfile,
   label,
-  onChange
+  onChange,
+  visible = true,
 }: ProfileInputProps) {
+  if (!visible) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
       <Select

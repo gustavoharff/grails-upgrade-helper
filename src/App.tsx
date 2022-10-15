@@ -1,21 +1,24 @@
+import { RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import semver from "semver";
 import { ShowMeButton } from "./components/button";
 import { Diffs } from "./components/diff";
 
-import { VersionInput, TypeInput, ProfileInput } from "./components/input";
+import { VersionSection } from "./components/version-section";
 
 export function App() {
   const [diff, setDiff] = useState<string | null>(null);
 
   const [versions, setVersions] = useState<Set<string>>(new Set());
 
-  const [oldType, setOldType] = useState("app");
-  const [oldProfile, setOldProfile] = useState("web");
-  const [newType, setNewType] = useState("app");
-  const [newProfile, setNewProfile] = useState("web");
-  const [oldVersion, setOldVersion] = useState<string>("");
-  const [newVersion, setNewVersion] = useState<string>("");
+  const [fromVersion, setFromVersion] = useState<string>("");
+  const [fromType, setFromType] = useState("app");
+  const [fromProfile, setFromProfile] = useState("web");
+
+  const [toVersion, setToVersion] = useState<string>("");
+  const [toType, setToType] = useState("app");
+  const [toProfile, setToProfile] = useState("web");
 
   useEffect(() => {
     axios
@@ -41,85 +44,76 @@ export function App() {
       });
   }, []);
 
+  function onFromVersionChange(version: string) {
+    if (version && semver.lt(version, "3.0.0")) {
+      setFromProfile("web");
+    }
+
+    setFromVersion(version);
+  }
+
+  function onToVersionChange(version: string) {
+    if (version && semver.lt(version, "3.0.0")) {
+      setToProfile("web");
+    }
+
+    setToVersion(version);
+  }
+
   async function submit() {
-    if (!oldVersion || !newVersion) {
+    if (!fromVersion || !toVersion) {
       setDiff(null);
       return;
     }
 
     try {
-      const response = await axios.get(
-        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${oldVersion}-${oldProfile}-${oldType}..${newVersion}-${newProfile}-${newType}.diff`
+      const response = await axios.get<string>(
+        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${fromVersion}-${fromProfile}-${fromType}..${toVersion}-${toProfile}-${toType}.diff`
       );
 
       setDiff(response.data);
-    } catch (error) {
+    } catch {
       setDiff(null);
     }
   }
 
   return (
     <div style={{ padding: 16 }}>
-      <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
-        <div>
-          <VersionInput
-            label="What's your current Grails version?"
-            selectedVersion={oldVersion}
-            versions={versions}
-            onChange={setOldVersion}
-          />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        <VersionSection
+          versionTitle="From Grails version"
+          versions={versions}
+          version={fromVersion}
+          onVersionChange={onFromVersionChange}
+          typeTitle="Application type"
+          type={fromType}
+          onTypeChange={setFromType}
+          profileTitle="Application profile"
+          profile={fromProfile}
+          onProfileChange={setFromProfile}
+        />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 16,
-              marginTop: 16,
-            }}
-          >
-            <TypeInput
-              label="Current Grails type?"
-              selectedType={oldType}
-              onChange={setOldType}
-            />
+        <RightOutlined />
 
-            <ProfileInput
-              label="Current Grails profile?"
-              selectedProfile={oldProfile}
-              onChange={setOldProfile}
-            />
-          </div>
-        </div>
-
-        <div>
-          <VersionInput
-            label="Which version would you like to upgrade to?"
-            selectedVersion={newVersion}
-            versions={versions}
-            onChange={setNewVersion}
-          />
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 16,
-              marginTop: 16,
-            }}
-          >
-            <TypeInput
-              label="New Grails type:"
-              selectedType={newType}
-              onChange={setNewType}
-            />
-
-            <ProfileInput
-              label="New Grails profile:"
-              selectedProfile={newProfile}
-              onChange={setNewProfile}
-            />
-          </div>
-        </div>
+        <VersionSection
+          versionTitle="To Grails version"
+          versions={versions}
+          version={toVersion}
+          onVersionChange={onToVersionChange}
+          typeTitle="Application type"
+          type={toType}
+          onTypeChange={setToType}
+          profileTitle="Application profile"
+          profile={toProfile}
+          onProfileChange={setToProfile}
+        />
       </div>
 
       <ShowMeButton onClick={submit} />
@@ -127,9 +121,9 @@ export function App() {
       <div style={{ marginTop: 16 }}>
         {diff && (
           <Diffs
-            newProfile={newProfile}
-            newType={newType}
-            newVersion={newVersion}
+            newProfile={toProfile}
+            newType={toType}
+            newVersion={toVersion}
             diff={diff}
           />
         )}
