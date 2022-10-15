@@ -55,11 +55,7 @@ export function App() {
         <div
           style={{
             display: 'flex',
-            // flex: 1,
-            // width: '100%',
             flexWrap: 'wrap',
-            // justifyContent: 'center',
-            // alignItems: 'center',
             gap: 16
           }}
         >

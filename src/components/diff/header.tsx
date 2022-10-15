@@ -99,7 +99,9 @@ export function DiffHeader({
   }
 
   function getOriginFilePath() {
-    return `https://github.com/gustavoharff/grails-diffs/raw/version/${newVersion}-${newProfile}-${newType}/${newPath as string}`
+    return `https://github.com/gustavoharff/grails-diffs/raw/version/${newVersion}-${newProfile}-${newType}/${
+      newPath as string
+    }`
   }
 
   function renderNewFile() {

@@ -34,7 +34,7 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
           <Radio.Group
             size="small"
             value={type}
-            onChange={(e) => {
+            onChange={e => {
               onTypeChange(e.target.value)
             }}
           >

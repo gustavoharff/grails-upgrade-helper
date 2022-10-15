@@ -14,11 +14,11 @@ export function VersionInput({
   onChange
 }: VersionInputProps) {
   return (
-      <Select
-        title={label}
-        value={selectedVersion ?? undefined}
-        onChange={onChange}
-        options={Array.from(versions)}
-      />
+    <Select
+      title={label}
+      value={selectedVersion ?? undefined}
+      onChange={onChange}
+      options={Array.from(versions)}
+    />
   )
 }

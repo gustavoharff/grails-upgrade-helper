@@ -36,7 +36,7 @@ export function Select({
         onChange={onChange}
         defaultValue={defaultValue}
       >
-        {options?.map((option) => (
+        {options?.map(option => (
           <AntdSelect.Option key={option} value={option}>
             {option}
           </AntdSelect.Option>

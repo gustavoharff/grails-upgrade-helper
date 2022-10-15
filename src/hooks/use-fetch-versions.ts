@@ -5,13 +5,16 @@ import { DIFFS_REPO_URL } from '../constants'
 function cleanVersions(data: string) {
   const versions = data.split('\n')
 
-  const withoutTypeAndProfile = versions.filter(v => v).map((v) =>
-    v
-      .replace('web', '')
-      .replace('rest-api', '')
-      .replace('app', '')
-      .replace('plugin', '')
-      .replaceAll('-', ''))
+  const withoutTypeAndProfile = versions
+    .filter(v => v)
+    .map(v =>
+      v
+        .replace('web', '')
+        .replace('rest-api', '')
+        .replace('app', '')
+        .replace('plugin', '')
+        .replaceAll('-', '')
+    )
 
   return Array.from(new Set(withoutTypeAndProfile))
 }
