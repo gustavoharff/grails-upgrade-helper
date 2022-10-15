@@ -11,12 +11,37 @@ import {
 import { DiffHeader } from './header'
 
 import styles from './diff.module.css'
+import { FileDiffType } from '../../types'
 
 interface DiffsProps {
   readonly diff: string
   readonly newVersion: string
   readonly newType: string
   readonly newProfile: string
+}
+
+function isDiffCollapsedByDefault(
+  type: FileDiffType,
+  hunks: any,
+  newPath?: string
+) {
+  if (
+    newPath?.endsWith('bundle.js') ||
+    newPath?.endsWith('.min.js') ||
+    newPath?.endsWith('.map') ||
+    newPath?.endsWith('.js.map') ||
+    newPath?.endsWith('bootstrap.css') ||
+    newPath?.endsWith('bootstrap.js') ||
+    newPath?.endsWith('.min.css')
+  ) {
+    return true
+  }
+
+  if (type === 'delete') return true
+
+  if (hunks.length > 5) return true
+
+  return false
 }
 
 export function Diffs(props: DiffsProps) {
@@ -41,7 +66,9 @@ interface DiffProps {
 }
 
 function Diff({ file, newProfile, newVersion, newType }: DiffProps) {
-  const [isDiffCollapsed, setIsDiffCollapsed] = useState(false)
+  const [isDiffCollapsed, setIsDiffCollapsed] = useState(
+    isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
+  )
 
   return (
     <div className={styles.diffContainer}>
