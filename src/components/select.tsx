@@ -26,7 +26,7 @@ export function Select({
 }: SelectProps) {
   return (
     <Container>
-      <h4>{title}</h4>
+      <h4 style={{ whiteSpace: 'nowrap' }}>{title}</h4>
 
       <SelectBox
         size="large"

@@ -1,5 +1,4 @@
 import { Select } from '../select'
-import styles from './input.module.css'
 
 interface ProfileInputProps {
   readonly label: string
@@ -19,7 +18,7 @@ export function ProfileInput({
   }
 
   return (
-    <div className={styles.container}>
+    <div style={{ width: 200 }}>
       <Select
         title={label}
         value={selectedProfile}

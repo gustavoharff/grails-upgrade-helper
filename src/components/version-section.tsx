@@ -1,16 +1,14 @@
 import styled from '@emotion/styled'
 import { useMemo } from 'react'
 import semver from 'semver'
-import { ProfileInput, TypeInput, VersionInput } from './input'
+import { ProfileInput, VersionInput } from './input'
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* width: 100%; */
+  flex: 1;
+  /* flex-wrap: wrap; */
   gap: 16px;
-  border-radius: 3px;
-  border: 1px solid #e8e8e8;
-  padding: 32px;
 `
 
 interface VersionSectionProps {
@@ -18,9 +16,6 @@ interface VersionSectionProps {
   versions: string[]
   version: string
   onVersionChange: (version: string) => void
-  typeTitle: string
-  type: string
-  onTypeChange: (type: string) => void
   profileTitle: string
   profile: string
   onProfileChange: (profile: string) => void
@@ -32,9 +27,6 @@ export function VersionSection(props: VersionSectionProps) {
     versions,
     version,
     onVersionChange,
-    typeTitle,
-    type,
-    onTypeChange,
     profileTitle,
     profile,
     onProfileChange
@@ -53,12 +45,6 @@ export function VersionSection(props: VersionSectionProps) {
         selectedVersion={version}
         versions={versions}
         onChange={onVersionChange}
-      />
-
-      <TypeInput
-        label={typeTitle}
-        selectedType={type}
-        onChange={onTypeChange}
       />
 
       <ProfileInput

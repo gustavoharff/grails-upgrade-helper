@@ -1,5 +1,4 @@
 import { Select } from '../select'
-import styles from './input.module.css'
 
 interface VersionInputProps {
   readonly label: string
@@ -15,13 +14,11 @@ export function VersionInput({
   onChange
 }: VersionInputProps) {
   return (
-    <div className={styles.container}>
       <Select
         title={label}
         value={selectedVersion ?? undefined}
         onChange={onChange}
         options={Array.from(versions)}
       />
-    </div>
   )
 }
