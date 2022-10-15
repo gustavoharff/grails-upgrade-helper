@@ -83,7 +83,7 @@ export function App() {
         <ShowMeButton onClick={fetch} loading={isFetching} />
       </Header>
 
-      <div style={{ marginTop: 16 }}>
+      <div style={{ marginTop: 16, display: 'flex', width: '100%' }}>
         {diff && (
           <Diffs
             newProfile={toProfile}

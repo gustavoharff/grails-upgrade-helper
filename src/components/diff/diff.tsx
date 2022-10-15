@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import {
   Decoration,
   Diff as RDiff,
@@ -48,7 +48,7 @@ export function Diffs(props: DiffsProps) {
   const files = parseDiff(props.diff)
 
   return (
-    <React.Fragment>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       {files.map(file => (
         <Diff
           key={`${file.oldPath}${file.newPath}`}
@@ -58,7 +58,7 @@ export function Diffs(props: DiffsProps) {
           newType={props.newType}
         />
       ))}
-    </React.Fragment>
+    </div>
   )
 }
 
