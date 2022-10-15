@@ -1,19 +1,19 @@
-import styled from "@emotion/styled";
-import { Select as AntdSelect, SelectProps as AntdSelectProps } from "antd";
+import styled from '@emotion/styled'
+import { Select as AntdSelect } from 'antd'
 
 const Container = styled.div`
   width: 100%;
-`;
+`
 const SelectBox = styled(AntdSelect)`
   width: 100%;
-`;
+`
 
 interface SelectProps {
-  title: string;
-  options: string[];
-  value?: string | null;
-  onChange: (value: string) => void;
-  defaultValue?: string;
+  title: string
+  options: string[]
+  value?: string | null
+  onChange: (value: string) => void
+  defaultValue?: string
 }
 
 export function Select({
@@ -43,5 +43,5 @@ export function Select({
         ))}
       </SelectBox>
     </Container>
-  );
+  )
 }

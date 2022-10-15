@@ -1,52 +1,50 @@
-import axios from "axios";
-import { useCallback, useState } from "react";
+import axios from 'axios'
+import { useCallback, useState } from 'react'
+import { DIFFS_REPO_URL } from '../constants'
 
 interface UseFetchDiffProps {
-  fromVersion?: string;
-  toVersion?: string;
+  fromVersion?: string
+  toVersion?: string
 
-  fromType: string;
-  toType: string;
+  fromType: string
+  toType: string
 
-  fromProfile: string;
-  toProfile: string;
+  fromProfile: string
+  toProfile: string
 }
-
-const DIFFS_REPO_URL =
-  "https://raw.githubusercontent.com/gustavoharff/grails-diffs";
 
 export function useFetchDiff(props: UseFetchDiffProps) {
   const { toVersion, fromVersion, toType, fromType, toProfile, fromProfile } =
-    props;
+    props
 
-  const [isFetching, setIsFetching] = useState(false);
-  const [diff, setDiff] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false)
+  const [diff, setDiff] = useState<string | null>(null)
 
   const fetch = useCallback(async () => {
     if (!fromVersion || !toVersion) {
-      setDiff(null);
-      return;
+      setDiff(null)
+      return
     }
 
-    setIsFetching(true);
+    setIsFetching(true)
 
-    const from = `${fromVersion}-${fromProfile}-${fromType}`;
-    const to = `${toVersion}-${toProfile}-${toType}`;
+    const from = `${fromVersion}-${fromProfile}-${fromType}`
+    const to = `${toVersion}-${toProfile}-${toType}`
 
-    const url = `/diffs/diffs/${from}..${to}.diff`;
+    const url = `/diffs/diffs/${from}..${to}.diff`
 
     try {
       const response = await axios.get<string>(url, {
-        baseURL: DIFFS_REPO_URL,
-      });
+        baseURL: DIFFS_REPO_URL
+      })
 
-      setDiff(response.data);
+      setDiff(response.data)
     } catch {
-      setDiff(null);
+      setDiff(null)
     } finally {
-      setIsFetching(false);
+      setIsFetching(false)
     }
-  }, [toVersion, fromVersion]);
+  }, [fromVersion, toVersion, fromProfile, fromType, toProfile, toType])
 
-  return { diff, isFetching, fetch };
+  return { diff, isFetching, fetch }
 }

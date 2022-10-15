@@ -1,1 +1,1 @@
-export type FileDiffType = "add" | "modify" | "delete" | "deleted" | "rename";
+export type FileDiffType = 'add' | 'modify' | 'delete' | 'deleted' | 'rename'

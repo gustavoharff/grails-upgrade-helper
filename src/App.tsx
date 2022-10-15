@@ -1,23 +1,23 @@
-import { RightOutlined } from "@ant-design/icons";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import semver from "semver";
-import { ShowMeButton } from "./components/button";
-import { Diffs } from "./components/diff";
+import { RightOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+import semver from 'semver'
+import { ShowMeButton } from './components/button'
+import { Diffs } from './components/diff'
 
-import { VersionSection } from "./components/version-section";
-import { useFetchDiff } from "./hooks/use-fetch-diff";
+import { VersionSection } from './components/version-section'
+import { useFetchDiff } from './hooks/use-fetch-diff'
+import { useFetchVersions } from './hooks/use-fetch-versions'
 
 export function App() {
-  const [versions, setVersions] = useState<Set<string>>(new Set());
+  const [fromVersion, setFromVersion] = useState<string>('')
+  const [fromType, setFromType] = useState('app')
+  const [fromProfile, setFromProfile] = useState('web')
 
-  const [fromVersion, setFromVersion] = useState<string>("");
-  const [fromType, setFromType] = useState("app");
-  const [fromProfile, setFromProfile] = useState("web");
+  const [toVersion, setToVersion] = useState<string>('')
+  const [toType, setToType] = useState('app')
+  const [toProfile, setToProfile] = useState('web')
 
-  const [toVersion, setToVersion] = useState<string>("");
-  const [toType, setToType] = useState("app");
-  const [toProfile, setToProfile] = useState("web");
+  const { versions } = useFetchVersions()
 
   const { diff, fetch, isFetching } = useFetchDiff({
     fromVersion,
@@ -25,57 +25,33 @@ export function App() {
     fromType,
     toType,
     fromProfile,
-    toProfile,
-  });
-
-  useEffect(() => {
-    axios
-      .get<string>(
-        "https://raw.githubusercontent.com/gustavoharff/grails-diffs/main/RELEASES"
-      )
-      .then((response) => {
-        setVersions(
-          new Set(
-            response.data
-              .split("\n")
-              .filter((v) => v)
-              .map((v) =>
-                v
-                  .replace("web", "")
-                  .replace("rest-api", "")
-                  .replace("app", "")
-                  .replace("plugin", "")
-                  .replaceAll("-", "")
-              )
-          )
-        );
-      });
-  }, []);
+    toProfile
+  })
 
   function onFromVersionChange(version: string) {
-    if (version && semver.lt(version, "3.0.0")) {
-      setFromProfile("web");
+    if (version && semver.lt(version, '3.0.0')) {
+      setFromProfile('web')
     }
 
-    setFromVersion(version);
+    setFromVersion(version)
   }
 
   function onToVersionChange(version: string) {
-    if (version && semver.lt(version, "3.0.0")) {
-      setToProfile("web");
+    if (version && semver.lt(version, '3.0.0')) {
+      setToProfile('web')
     }
 
-    setToVersion(version);
+    setToVersion(version)
   }
 
   return (
     <div style={{ padding: 16 }}>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 16,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 16
         }}
       >
         <VersionSection
@@ -120,5 +96,5 @@ export function App() {
         )}
       </div>
     </div>
-  );
+  )
 }

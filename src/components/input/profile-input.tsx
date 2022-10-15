@@ -1,21 +1,21 @@
-import { Select } from "../select";
-import styles from "./input.module.css";
+import { Select } from '../select'
+import styles from './input.module.css'
 
 interface ProfileInputProps {
-  readonly label: string;
-  readonly selectedProfile: string;
-  readonly onChange: (value: string) => void;
-  readonly visible?: boolean;
+  readonly label: string
+  readonly selectedProfile: string
+  readonly onChange: (value: string) => void
+  readonly visible?: boolean
 }
 
 export function ProfileInput({
   selectedProfile,
   label,
   onChange,
-  visible = true,
+  visible = true
 }: ProfileInputProps) {
   if (!visible) {
-    return null;
+    return null
   }
 
   return (
@@ -24,9 +24,9 @@ export function ProfileInput({
         title={label}
         value={selectedProfile}
         onChange={onChange}
-        options={["web", "rest-api"]}
+        options={['web', 'rest-api']}
         defaultValue="web"
       />
     </div>
-  );
+  )
 }

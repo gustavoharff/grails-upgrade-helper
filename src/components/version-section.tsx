@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { useMemo } from "react";
-import semver from "semver";
-import { ProfileInput, TypeInput, VersionInput } from "./input";
+import styled from '@emotion/styled'
+import { useMemo } from 'react'
+import semver from 'semver'
+import { ProfileInput, TypeInput, VersionInput } from './input'
 
 const Container = styled.div`
   display: flex;
@@ -10,19 +10,19 @@ const Container = styled.div`
   gap: 16px;
   border: 1px solid #3333;
   padding: 32px;
-`;
+`
 
 interface VersionSectionProps {
-  versionTitle: string;
-  versions: Set<string>;
-  version: string;
-  onVersionChange: (version: string) => void;
-  typeTitle: string;
-  type: string;
-  onTypeChange: (type: string) => void;
-  profileTitle: string;
-  profile: string;
-  onProfileChange: (profile: string) => void;
+  versionTitle: string
+  versions: string[]
+  version: string
+  onVersionChange: (version: string) => void
+  typeTitle: string
+  type: string
+  onTypeChange: (type: string) => void
+  profileTitle: string
+  profile: string
+  onProfileChange: (profile: string) => void
 }
 
 export function VersionSection(props: VersionSectionProps) {
@@ -36,14 +36,14 @@ export function VersionSection(props: VersionSectionProps) {
     onTypeChange,
     profileTitle,
     profile,
-    onProfileChange,
-  } = props;
+    onProfileChange
+  } = props
 
   const profileVisible = useMemo(() => {
-    if (!version) return false;
+    if (!version) return false
 
-    return semver.gte(version, "3.0.0");
-  }, [version]);
+    return semver.gte(version, '3.0.0')
+  }, [version])
 
   return (
     <Container>
@@ -67,5 +67,5 @@ export function VersionSection(props: VersionSectionProps) {
         visible={profileVisible}
       />
     </Container>
-  );
+  )
 }

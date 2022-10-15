@@ -1,20 +1,18 @@
-import styles from "./show-me-button.module.css";
-
-import { Button } from "antd";
+import { Button } from 'antd'
 
 interface ShowMeButtonProps {
-  onClick: () => void;
-  loading?: boolean;
+  onClick: () => void
+  loading?: boolean
 }
 export function ShowMeButton({ onClick, loading }: ShowMeButtonProps) {
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        height: "auto",
-        overflow: "hidden",
-        marginTop: 25,
+        display: 'flex',
+        justifyContent: 'center',
+        height: 'auto',
+        overflow: 'hidden',
+        marginTop: 25
       }}
     >
       <Button
@@ -23,11 +21,11 @@ export function ShowMeButton({ onClick, loading }: ShowMeButtonProps) {
         type="primary"
         size="large"
         style={{
-          borderRadius: 3,
+          borderRadius: 3
         }}
       >
         Show me
       </Button>
     </div>
-  );
+  )
 }
