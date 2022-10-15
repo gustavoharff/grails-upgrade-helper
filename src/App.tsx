@@ -6,10 +6,9 @@ import { ShowMeButton } from "./components/button";
 import { Diffs } from "./components/diff";
 
 import { VersionSection } from "./components/version-section";
+import { useFetchDiff } from "./hooks/use-fetch-diff";
 
 export function App() {
-  const [diff, setDiff] = useState<string | null>(null);
-
   const [versions, setVersions] = useState<Set<string>>(new Set());
 
   const [fromVersion, setFromVersion] = useState<string>("");
@@ -19,6 +18,15 @@ export function App() {
   const [toVersion, setToVersion] = useState<string>("");
   const [toType, setToType] = useState("app");
   const [toProfile, setToProfile] = useState("web");
+
+  const { diff, fetch, isFetching } = useFetchDiff({
+    fromVersion,
+    toVersion,
+    fromType,
+    toType,
+    fromProfile,
+    toProfile,
+  });
 
   useEffect(() => {
     axios
@@ -60,23 +68,6 @@ export function App() {
     setToVersion(version);
   }
 
-  async function submit() {
-    if (!fromVersion || !toVersion) {
-      setDiff(null);
-      return;
-    }
-
-    try {
-      const response = await axios.get<string>(
-        `https://raw.githubusercontent.com/gustavoharff/grails-diffs/diffs/diffs/${fromVersion}-${fromProfile}-${fromType}..${toVersion}-${toProfile}-${toType}.diff`
-      );
-
-      setDiff(response.data);
-    } catch {
-      setDiff(null);
-    }
-  }
-
   return (
     <div style={{ padding: 16 }}>
       <div
@@ -116,7 +107,7 @@ export function App() {
         />
       </div>
 
-      <ShowMeButton onClick={submit} />
+      <ShowMeButton onClick={fetch} loading={isFetching} />
 
       <div style={{ marginTop: 16 }}>
         {diff && (

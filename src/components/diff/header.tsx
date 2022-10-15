@@ -4,7 +4,7 @@ import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import styles from "./header.module.css";
 import { FileDiffType } from "../../types";
 import styled from "@emotion/styled";
-import { Button, ButtonProps, Tag, TagProps } from "antd";
+import { ButtonProps, Tag, TagProps } from "antd";
 
 interface DiffHeaderProps {
   readonly type: FileDiffType;
@@ -45,24 +45,25 @@ interface CollapseDiffButtonProps extends ButtonProps {
   isDiffCollapsed: boolean;
 }
 
-const CollapseDiffButton = styled(
-  ({ visible, isDiffCollapsed, ...props }: CollapseDiffButtonProps) =>
-    visible ? <Button {...props} type="link" icon={<DownOutlined />} /> : null
-)`
-  color: #24292e;
-  margin-right: 2px;
-  font-size: 10px;
-  width: 10px;
-  transform: ${({ isDiffCollapsed }) => isDiffCollapsed ? "rotate(-90deg)" : "initial"};
-  transition: transform 0.2s ease-in-out;
-  transform-origin: center;
-  line-height: 0;
-  height: auto;
-  &:hover,
-  &:focus {
-    color: #24292e;
+function CollapseDiffButton(props: CollapseDiffButtonProps) {
+  const { visible, isDiffCollapsed } = props;
+
+  if (!visible) {
+    return null;
   }
-`;
+
+  return (
+    <DownOutlined
+      style={{
+        width: 10,
+        color: "#24292e",
+        transform: isDiffCollapsed ? "rotate(-90deg)" : "initial",
+        transition: "transform 0.2s ease-in-out",
+        transformOrigin: "center",
+      }}
+    />
+  );
+}
 
 export function DiffHeader({
   newPath,
@@ -116,7 +117,7 @@ export function DiffHeader({
       <button
         className={styles.collapsableClickArea}
         onClick={() => setIsDiffCollapsed(!isDiffCollapsed)}
-        style={{ cursor: hasDiff ? 'pointer' :'default'}}
+        style={{ cursor: hasDiff ? "pointer" : "default" }}
       >
         <CollapseDiffButton
           visible={hasDiff ?? false}

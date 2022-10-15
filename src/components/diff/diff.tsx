@@ -24,6 +24,7 @@ export function Diffs(props: DiffsProps) {
 
   return files.map((file: any) => (
     <Diff
+      key={`${file.oldPath}${file.newPath}`}
       file={file}
       newProfile={props.newProfile}
       newVersion={props.newVersion}

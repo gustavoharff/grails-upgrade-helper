@@ -4,8 +4,9 @@ import { Button } from "antd";
 
 interface ShowMeButtonProps {
   onClick: () => void;
+  loading?: boolean;
 }
-export function ShowMeButton({ onClick }: ShowMeButtonProps) {
+export function ShowMeButton({ onClick, loading }: ShowMeButtonProps) {
   return (
     <div
       style={{
@@ -17,6 +18,7 @@ export function ShowMeButton({ onClick }: ShowMeButtonProps) {
       }}
     >
       <Button
+        loading={loading}
         onClick={onClick}
         type="primary"
         size="large"
