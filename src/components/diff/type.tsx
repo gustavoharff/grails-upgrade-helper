@@ -1,13 +1,14 @@
 import { Tag, TagProps } from 'antd'
 
-import { FileDiffType } from '../../types'
+import { File } from '../../types'
 
 interface DiffTypeProps extends TagProps {
-  readonly type: FileDiffType
+  readonly type: File['type']
 }
 
 export function DiffType({ type, ...props }: DiffTypeProps) {
   const colors = {
+    new: 'blue',
     add: 'blue',
     modify: 'green',
     delete: 'red',
@@ -16,6 +17,7 @@ export function DiffType({ type, ...props }: DiffTypeProps) {
   }
 
   const labels = {
+    new: 'ADDED',
     add: 'ADDED',
     modify: 'MODIFIED',
     delete: 'DELETED',

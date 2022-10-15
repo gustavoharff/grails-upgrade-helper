@@ -2,12 +2,12 @@ import { DiffType } from './type'
 
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
 import styles from './header.module.css'
-import { FileDiffType } from '../../types'
+import { File } from '../../types'
 import styled from '@emotion/styled'
 import { ButtonProps, Tag, TagProps } from 'antd'
 
 interface DiffHeaderProps {
-  readonly type: FileDiffType
+  readonly type: File['type']
   readonly newPath?: string
   readonly oldPath?: string
   readonly hasDiff?: boolean
@@ -21,7 +21,7 @@ interface DiffHeaderProps {
 const FileRenameArrow = styled(RightOutlined)({
   fontSize: '10px',
   margin: '0 5px',
-  color: '#f78206'
+  color: '#1890ff'
 })
 
 interface BinaryBadgeProps extends TagProps {

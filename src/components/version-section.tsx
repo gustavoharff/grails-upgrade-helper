@@ -5,9 +5,7 @@ import { ProfileInput, VersionInput } from './input'
 
 const Container = styled.div`
   display: flex;
-  /* width: 100%; */
   flex: 1;
-  /* flex-wrap: wrap; */
   gap: 16px;
 `
 
