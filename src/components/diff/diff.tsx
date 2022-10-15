@@ -1,17 +1,17 @@
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
   parseDiff,
   Diff as RDiff,
   Hunk,
   Decoration,
   markEdits,
-  tokenize
-  // @ts-expect-error
+  tokenize,
+  HunkType,
+  File
 } from 'react-diff-view'
 import { DiffHeader } from './header'
 
 import styles from './diff.module.css'
-import { File, Hunk as HunkType } from '../../types'
 
 interface DiffsProps {
   readonly diff: string
@@ -47,15 +47,19 @@ function isDiffCollapsedByDefault(
 export function Diffs(props: DiffsProps) {
   const files = parseDiff(props.diff)
 
-  return files.map((file: File) => (
-    <Diff
-      key={`${file.oldPath}${file.newPath}`}
-      file={file}
-      newProfile={props.newProfile}
-      newVersion={props.newVersion}
-      newType={props.newType}
-    />
-  ))
+  return (
+    <React.Fragment>
+      {files.map(file => (
+        <Diff
+          key={`${file.oldPath}${file.newPath}`}
+          file={file}
+          newProfile={props.newProfile}
+          newVersion={props.newVersion}
+          newType={props.newType}
+        />
+      ))}
+    </React.Fragment>
+  )
 }
 
 interface DiffProps {
@@ -92,14 +96,14 @@ function Diff({ file, newProfile, newVersion, newType }: DiffProps) {
             hunks={file.hunks}
             optimizeSelection={true}
           >
-            {(hunks: HunkType[]) => {
+            {hunks => {
               const options = {
                 enhancers: [markEdits(hunks)]
               }
 
               const tokens = tokenize(hunks, options)
 
-              return hunks.map((hunk: HunkType) => (
+              return hunks.map(hunk => (
                 <Fragment key={`decoration-${hunk.content}`}>
                   <Decoration>
                     <div className={styles.hunkContent}>{hunk.content}</div>
