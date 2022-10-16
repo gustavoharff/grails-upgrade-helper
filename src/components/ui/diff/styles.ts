@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: 32px;
+  margin-top: 16px;
   border: 1px solid rgb(232, 232, 232);
   border-radius: 3px;
 `

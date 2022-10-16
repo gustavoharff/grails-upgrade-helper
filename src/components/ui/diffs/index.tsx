@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { parseDiff } from 'react-diff-view'
 
 import { Diff } from '../diff'
-import { Container } from './styles'
+import { Container, Content, Controls } from './styles'
+import { ViewStyleOption } from './view-style-option'
 
 interface DiffsProps {
   readonly diff: string
@@ -13,17 +15,26 @@ interface DiffsProps {
 export function Diffs(props: DiffsProps) {
   const files = parseDiff(props.diff)
 
+  const [viewType, setViewType] = useState<'split' | 'unified'>('split')
+
   return (
     <Container>
-      {files.map(file => (
-        <Diff
-          key={`${file.oldPath}${file.newPath}`}
-          file={file}
-          newProfile={props.newProfile}
-          newVersion={props.newVersion}
-          type={props.type}
-        />
-      ))}
+      <Content>
+        <Controls>
+          <ViewStyleOption value={viewType} onChange={setViewType} />
+        </Controls>
+
+        {files.map(file => (
+          <Diff
+            key={`${file.oldPath}${file.newPath}`}
+            file={file}
+            newProfile={props.newProfile}
+            newVersion={props.newVersion}
+            type={props.type}
+            viewType={viewType}
+          />
+        ))}
+      </Content>
     </Container>
   )
 }

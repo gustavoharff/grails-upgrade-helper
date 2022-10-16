@@ -14,12 +14,19 @@ import { isDiffCollapsedByDefault } from './utils'
 
 interface DiffProps {
   readonly file: File
+  readonly viewType: 'split' | 'unified'
   readonly newProfile: string
   readonly newVersion: string
   readonly type: string
 }
 
-export function Diff({ file, newProfile, newVersion, type }: DiffProps) {
+export function Diff({
+  file,
+  newProfile,
+  newVersion,
+  type,
+  viewType
+}: DiffProps) {
   const [isDiffCollapsed, setIsDiffCollapsed] = useState(
     isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
   )
@@ -41,7 +48,7 @@ export function Diff({ file, newProfile, newVersion, type }: DiffProps) {
       {!isDiffCollapsed && (
         <div>
           <RDiff
-            viewType="split"
+            viewType={viewType}
             diffType={file.type === 'new' ? 'add' : file.type}
             hunks={file.hunks}
             optimizeSelection={true}

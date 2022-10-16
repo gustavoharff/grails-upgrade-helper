@@ -13,6 +13,7 @@ export const Content = styled.div`
   margin-top: 16;
   display: flex;
   width: 100%;
+  justify-content: center;
 `
 
 interface PageProps {
