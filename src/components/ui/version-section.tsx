@@ -2,7 +2,8 @@ import styled from '@emotion/styled'
 import { useMemo } from 'react'
 import semver from 'semver'
 
-import { ProfileInput, VersionInput } from './input'
+import { ProfileInput } from './profile-input'
+import { VersionInput } from './version-input'
 
 const Container = styled.div`
   display: flex;
@@ -16,8 +17,8 @@ interface VersionSectionProps {
   version: string
   onVersionChange: (version: string) => void
   profileTitle: string
-  profile: string
-  onProfileChange: (profile: string) => void
+  profile: 'web' | 'rest-api'
+  onProfileChange: (profile: 'web' | 'rest-api') => void
 }
 
 export function VersionSection(props: VersionSectionProps) {

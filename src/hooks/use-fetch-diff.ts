@@ -7,16 +7,14 @@ interface UseFetchDiffProps {
   fromVersion?: string
   toVersion?: string
 
-  fromType: string
-  toType: string
+  type: string
 
   fromProfile: string
   toProfile: string
 }
 
 export function useFetchDiff(props: UseFetchDiffProps) {
-  const { toVersion, fromVersion, toType, fromType, toProfile, fromProfile } =
-    props
+  const { toVersion, fromVersion, type, toProfile, fromProfile } = props
 
   const [isFetching, setIsFetching] = useState(false)
   const [diff, setDiff] = useState<string | null>(null)
@@ -29,8 +27,8 @@ export function useFetchDiff(props: UseFetchDiffProps) {
 
     setIsFetching(true)
 
-    const from = `${fromVersion}-${fromProfile}-${fromType}`
-    const to = `${toVersion}-${toProfile}-${toType}`
+    const from = `${fromVersion}-${fromProfile}-${type}`
+    const to = `${toVersion}-${toProfile}-${type}`
 
     const url = `/diffs/diffs/${from}..${to}.diff`
 
@@ -45,7 +43,7 @@ export function useFetchDiff(props: UseFetchDiffProps) {
     } finally {
       setIsFetching(false)
     }
-  }, [fromVersion, toVersion, fromProfile, fromType, toProfile, toType])
+  }, [fromVersion, toVersion, fromProfile, type, toProfile])
 
   return { diff, isFetching, fetch }
 }

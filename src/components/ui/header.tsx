@@ -11,6 +11,25 @@ const Container = styled(Card)`
   border-color: #e8e8e8;
 `
 
+const Top = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const Center = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+`
+
+const Bottom = styled.div`
+  margin-top: 16px;
+`
+
 export function Header({ children }: HeaderProps) {
   return <Container>{children}</Container>
 }
+
+Header.Top = Top
+Header.Center = Center
+Header.Bottom = Bottom

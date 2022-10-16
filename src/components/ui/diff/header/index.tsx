@@ -1,10 +1,9 @@
-import { DownOutlined, RightOutlined } from '@ant-design/icons'
-import styled from '@emotion/styled'
-import { ButtonProps, Tag, TagProps } from 'antd'
 import { File } from 'react-diff-view'
 
-import styles from './header.module.css'
-import { DiffType } from './type'
+import { BinaryBadge } from './binary-badge'
+import { CollapseDiffButton } from './collapse-diff-button'
+import { DiffType } from './diff-type'
+import { CollapsableClickArea, Container, FileRenameArrow } from './styles'
 
 interface DiffHeaderProps {
   readonly type: File['type']
@@ -12,57 +11,10 @@ interface DiffHeaderProps {
   readonly oldPath?: string
   readonly hasDiff?: boolean
   readonly newVersion: string
-  readonly newType: string
+  readonly applicationType: string
   readonly newProfile: string
   readonly isDiffCollapsed: boolean
   readonly setIsDiffCollapsed: (value: boolean) => void
-}
-
-const FileRenameArrow = styled(RightOutlined)({
-  fontSize: '10px',
-  margin: '0 5px',
-  color: '#1890ff'
-})
-
-interface BinaryBadgeProps extends TagProps {
-  visible: boolean
-}
-
-function BinaryBadge({ visible, ...props }: BinaryBadgeProps) {
-  if (!visible) {
-    return null
-  }
-
-  return (
-    <Tag {...props} color="cyan">
-      BINARY
-    </Tag>
-  )
-}
-
-interface CollapseDiffButtonProps extends ButtonProps {
-  visible: boolean
-  isDiffCollapsed: boolean
-}
-
-function CollapseDiffButton(props: CollapseDiffButtonProps) {
-  const { visible, isDiffCollapsed } = props
-
-  if (!visible) {
-    return null
-  }
-
-  return (
-    <DownOutlined
-      style={{
-        width: 10,
-        color: '#24292e',
-        transform: isDiffCollapsed ? 'rotate(-90deg)' : 'initial',
-        transition: 'transform 0.2s ease-in-out',
-        transformOrigin: 'center'
-      }}
-    />
-  )
 }
 
 export function DiffHeader({
@@ -71,7 +23,7 @@ export function DiffHeader({
   type,
   newVersion,
   newProfile,
-  newType,
+  applicationType,
   hasDiff,
   isDiffCollapsed,
   setIsDiffCollapsed
@@ -99,7 +51,7 @@ export function DiffHeader({
   }
 
   function getOriginFilePath() {
-    return `https://github.com/gustavoharff/grails-diffs/raw/version/${newVersion}-${newProfile}-${newType}/${
+    return `https://github.com/gustavoharff/grails-diffs/raw/version/${newVersion}-${newProfile}-${applicationType}/${
       newPath as string
     }`
   }
@@ -115,9 +67,8 @@ export function DiffHeader({
   }
 
   return (
-    <div className={styles.diffHeader}>
-      <button
-        className={styles.collapsableClickArea}
+    <Container>
+      <CollapsableClickArea
         onClick={() => setIsDiffCollapsed(!isDiffCollapsed)}
         style={{ cursor: hasDiff ? 'pointer' : 'default' }}
       >
@@ -128,9 +79,9 @@ export function DiffHeader({
         {getPath()}
         <DiffType type={type} />
         <BinaryBadge visible={!hasDiff} />
-      </button>
+      </CollapsableClickArea>
 
       <div>{renderNewFile()}</div>
-    </div>
+    </Container>
   )
 }

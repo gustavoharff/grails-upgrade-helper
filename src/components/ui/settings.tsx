@@ -14,8 +14,8 @@ const TypeGroupContainer = styled.div`
 `
 
 interface SettingsProps {
-  type: string
-  onTypeChange: (type: string) => void
+  type: 'app' | 'plugin'
+  onTypeChange: (type: 'app' | 'plugin') => void
 }
 
 export function Settings({ type, onTypeChange }: SettingsProps) {

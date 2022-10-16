@@ -1,1 +1,0 @@
-export { Diffs } from './diff'

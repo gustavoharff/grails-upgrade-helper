@@ -8,22 +8,22 @@ const SelectBox = styled(AntdSelect)`
   width: 100%;
 `
 
-interface SelectProps {
+interface SelectProps<T extends string> {
   title: string
-  options: string[]
-  value?: string | null
-  onChange: (value: string) => void
+  options: T[]
+  value?: T | null
+  onChange: (value: T) => void
   defaultValue?: string
 }
 
-export function Select({
+export function Select<T extends string>({
   title,
   options,
   value,
   onChange,
   defaultValue,
   ...props
-}: SelectProps) {
+}: SelectProps<T>) {
   return (
     <Container>
       <h4 style={{ whiteSpace: 'nowrap' }}>{title}</h4>

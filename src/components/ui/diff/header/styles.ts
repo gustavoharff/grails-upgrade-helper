@@ -1,8 +1,11 @@
-.diffHeader {
+import { RightOutlined } from '@ant-design/icons'
+import styled from '@emotion/styled'
+
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
+  font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier,
     monospace;
   font-size: 12px;
   color: rgb(36, 41, 46);
@@ -15,13 +18,19 @@
   border-top-right-radius: 2px;
   position: sticky;
   top: 0;
-}
+`
 
-.collapsableClickArea {
+export const CollapsableClickArea = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
   border: 0;
   background-color: transparent;
   cursor: pointer;
-}
+`
+
+export const FileRenameArrow = styled(RightOutlined)`
+  font-size: 10px;
+  margin: 0 5px;
+  color: #1890ff;
+`

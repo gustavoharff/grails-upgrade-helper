@@ -1,9 +1,15 @@
-import { Select } from '../select'
+import styled from '@emotion/styled'
+
+import { Select } from './select'
+
+const Container = styled.div`
+  width: 200;
+`
 
 interface ProfileInputProps {
   readonly label: string
-  readonly selectedProfile: string
-  readonly onChange: (value: string) => void
+  readonly selectedProfile: 'web' | 'rest-api'
+  readonly onChange: (value: 'web' | 'rest-api') => void
   readonly visible?: boolean
 }
 
@@ -18,7 +24,7 @@ export function ProfileInput({
   }
 
   return (
-    <div style={{ width: 200 }}>
+    <Container>
       <Select
         title={label}
         value={selectedProfile}
@@ -26,6 +32,6 @@ export function ProfileInput({
         options={['web', 'rest-api']}
         defaultValue="web"
       />
-    </div>
+    </Container>
   )
 }
