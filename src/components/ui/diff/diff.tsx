@@ -1,4 +1,6 @@
+import clsx from 'clsx'
 import { Fragment, useState } from 'react'
+import { useThemeSwitcher } from 'react-css-theme-switcher'
 import {
   Decoration,
   Diff as RDiff,
@@ -26,8 +28,17 @@ export function Diff(props: DiffProps) {
     isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
   )
 
+  const { currentTheme } = useThemeSwitcher()
+
   return (
-    <div className="w-full mt-4 border border-solid border-gray-200 rounded-sm">
+    <div
+      className={clsx(
+        'w-full mt-4 border border-solid border-gray-200 rounded-sm',
+        {
+          '!border-[#303030]': currentTheme === 'dark'
+        }
+      )}
+    >
       <DiffHeader
         newPath={file.newPath}
         oldPath={file.oldPath}
@@ -58,9 +69,7 @@ export function Diff(props: DiffProps) {
               return hunks.map(hunk => (
                 <Fragment key={`decoration-${hunk.content}`}>
                   <Decoration>
-                    <div className="bg-blue-50 ml-8 pl-1 text-gray-800 text-opacity-70">
-                      {hunk.content}
-                    </div>
+                    <div className="ml-8 pl-1">{hunk.content}</div>
                   </Decoration>
 
                   <Hunk key={hunk.content} hunk={hunk} tokens={tokens} />

@@ -2,51 +2,132 @@
 @tailwind utilities;
 @tailwind components;
 
+body[data-theme="light"] {
+  --diff-background-color: transparent;
+  --diff-text-color: #000;
+  --diff-selection-background-color: #b3d7ff;
+  --diff-gutter-insert-background-color: #d6fedb;
+  --diff-gutter-delete-background-color: #fadde0;
+  --diff-gutter-selected-background-color: #fffce0;
+  --diff-code-insert-background-color: #eaffee;
+  --diff-code-delete-background-color: #fdeff0;
+  --diff-code-insert-edit-background-color: #acf2bd;
+  --diff-code-delete-edit-background-color: #f39ea2;
+  --diff-code-selected-background-color: #fffce0;
+  --diff-omit-background-color: #fafbfc;
+  --diff-decoration-gutter-background-color: #f2f8ff;
+  --diff-decoration-gutter-color: #999;
+  --diff-decoration-content-background-color: #f2f8ff;
+  --diff-decoration-content-color: #999;
+  --diff-omit-gutter-line-color: transparent;
+}
+
+body[data-theme="dark"] {
+  --diff-background-color: #000;
+  --diff-text-color: #c5c8c6;
+  --diff-selection-background-color: #5a5f80;
+  --diff-gutter-insert-background-color: rgba(87, 171, 90, 0.3);
+  --diff-gutter-delete-background-color: rgba(229, 83, 75, 0.3);
+  --diff-gutter-selected-background-color: #5a5f80;
+  --diff-code-insert-background-color: rgba(70, 149, 74, 0.2);
+  --diff-code-delete-background-color: rgba(229, 83, 75, 0.2);
+  --diff-code-insert-edit-background-color: rgba(70, 149, 74, 0.4);
+  --diff-code-delete-edit-background-color: rgba(255, 51, 51, 0.4);
+  --diff-code-selected-background-color: #5a5f80;
+  --diff-omit-background-color: #101120;
+  --diff-decoration-gutter-background-color: #222;
+  --diff-decoration-gutter-color: #ababab;
+  --diff-decoration-content-background-color: rgb(32, 48, 67);
+  --diff-decoration-content-color: #768390;
+  --diff-omit-gutter-line-color: transparent;
+}
+
 .diff-gutter-col {
   width: 30px !important;
 }
 
-.diff-decoration {
-  background-color: rgba(219, 237, 255, 0.5);
+.diff {
+  background-color: var(--diff-background-color);
+  color: var(--diff-text-color);
+  tab-size: 4;
+  hyphens: none;
 }
 
-tr.diff-line {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+.diff::selection {
+  background-color: var(--diff-selection-background-color);
+}
+
+.diff-decoration {
+  line-height: 2;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
     monospace;
 }
 
-td.diff-gutter {
-  color: rgba(27, 31, 35, 0.3);
+.diff-decoration-content {
+  background-color: #f2f8ff;
+  padding-left: 0.5em;
+  color: #999;
+}
+
+.diff-gutter-insert {
+  background-color: var(--diff-gutter-insert-background-color);
+}
+
+.diff-gutter-delete {
+  background-color: var(--diff-gutter-delete-background-color);
+}
+
+.diff-gutter-selected {
+  background-color: var(--diff-gutter-selected-background-color);
+}
+
+.diff-code-insert {
+  background-color: var(--diff-code-insert-background-color);
+}
+
+.diff-code-edit {
+  display: inline-block;
+  color: inherit;
+}
+
+.diff-code-insert .diff-code-edit {
+  background-color: var(--diff-code-insert-edit-background-color);
+}
+
+.diff-code-delete {
+  background-color: var(--diff-code-delete-background-color);
+}
+
+.diff-code-delete .diff-code-edit {
+  background-color: var(--diff-code-delete-edit-background-color);
+}
+
+.diff-code-selected {
+  background-color: var(--diff-code-selected-background-color);
+}
+
+.diff-decoration-gutter {
+  background-color: var(--diff-decoration-gutter-background-color);
+  color: var(--diff-decoration-gutter-color);
+}
+
+.diff-decoration-content {
+  background-color: var(--diff-decoration-content-background-color);
+  color: var(--diff-decoration-content-color);
+}
+
+.diff-gutter-omit:before {
+  width: 0;
+}
+
+.diff-gutter {
+  color: var(--diff-decoration-content-color);
   padding: 0;
+  font-size: 13px;
   text-align: center;
-  font-size: 12px;
   cursor: auto;
 }
 
-td.diff-gutter .diff-line-normal {
-  background-color: #cdffd8;
-  border-color: #bef5cb;
-}
-
-td.diff-gutter:hover {
-  cursor: pointer;
-  color: rgba(27, 31, 35, 0.6);
-}
-
-td.diff-code {
-  font-size: 12px;
-  color: #24292e;
-}
-
-td.diff-code-insert .diff-code-edit {
-  background-color: #acf2bd;
-}
-
-td.diff-gutter-omit:before {
-  width: 0;
-  background-color: transparent;
-}
-
-td.diff-widget-content {
-  padding: 0;
+.diff-code {
+  font-size: 13px;
 }

@@ -1,5 +1,6 @@
 import { RightOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
+import { useThemeSwitcher } from 'react-css-theme-switcher'
 import { File } from 'react-diff-view'
 
 import { BinaryBadge } from './binary-badge'
@@ -30,6 +31,8 @@ export function DiffHeader(props: DiffHeaderProps) {
     isDiffCollapsed,
     setIsDiffCollapsed
   } = props
+
+  const { currentTheme } = useThemeSwitcher()
 
   function getPathWithouAppName(path?: string) {
     return path?.replace('myapp/', '').replace('myplugin/', '')
@@ -72,7 +75,17 @@ export function DiffHeader(props: DiffHeaderProps) {
   }
 
   return (
-    <div className="flex justify-between items-center text-xs leading-8 text-gray-800 pt-2 pb-2 pl-3 pr-3 bg-gray-50 border-b border-b-gray-200 sticky top-0 rounded-t-sm font-mono">
+    <div
+      className={clsx(
+        'flex justify-between items-center text-xs leading-8 pt-2 pb-2 pl-3 pr-3 bg-gray-50 border-b border-b-gray-200 sticky top-0 rounded-t-sm font-mono',
+        {
+          'bg-[#141414]': currentTheme === 'dark',
+          '!border-[#303030]': currentTheme === 'dark',
+          'text-gray-800': currentTheme === 'light',
+          'text-gray-100': currentTheme === 'dark'
+        }
+      )}
+    >
       <button
         className={clsx('flex items-center gap-2 border-0 bg-transparent', {
           'cursor-pointer': hasDiff

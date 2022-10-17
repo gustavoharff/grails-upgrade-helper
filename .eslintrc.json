@@ -41,6 +41,7 @@
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
     "space-before-function-paren": [
       "error",
       {

@@ -5,7 +5,7 @@ interface HeaderProps {
 }
 
 function Top({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-end">{children}</div>
+  return <div className="flex justify-end gap-4">{children}</div>
 }
 
 function Center({ children }: { children: React.ReactNode }) {

@@ -1,4 +1,6 @@
+import { Radio } from 'antd'
 import { useState } from 'react'
+import { useThemeSwitcher } from 'react-css-theme-switcher'
 import semver from 'semver'
 
 import { useFetchDiff, useFetchVersions } from '../../hooks'
@@ -21,6 +23,8 @@ export function Home() {
   const [toProfile, setToProfile] = useState<'web' | 'rest-api'>('web')
 
   const { versions } = useFetchVersions()
+
+  const { switcher, currentTheme } = useThemeSwitcher()
 
   const { diff, fetch, isFetching } = useFetchDiff({
     type,
@@ -50,6 +54,20 @@ export function Home() {
     <Page>
       <Header>
         <Header.Top>
+          <Radio.Group value={currentTheme}>
+            <Radio.Button
+              value="light"
+              onChange={() => switcher({ theme: 'light' })}
+            >
+              🌕
+            </Radio.Button>
+            <Radio.Button
+              value="dark"
+              onChange={() => switcher({ theme: 'dark' })}
+            >
+              🌑
+            </Radio.Button>
+          </Radio.Group>
           <Settings type={type} onTypeChange={setType} />
         </Header.Top>
 
