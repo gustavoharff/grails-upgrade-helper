@@ -7,9 +7,21 @@ const themes = {
   light: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.23.5/antd.min.css'
 }
 
+const systemPrefersDark = window.matchMedia(
+  '(prefers-color-scheme: dark)'
+).matches
+
+const themeStoraged = localStorage.getItem('theme')
+
+let defaultTheme = systemPrefersDark ? 'dark' : 'light'
+
+if (themeStoraged && (themeStoraged === 'light' || themeStoraged === 'dark')) {
+  defaultTheme = themeStoraged
+}
+
 export function App() {
   return (
-    <ThemeSwitcherProvider defaultTheme="light" themeMap={themes}>
+    <ThemeSwitcherProvider defaultTheme={defaultTheme} themeMap={themes}>
       <Home />
     </ThemeSwitcherProvider>
   )

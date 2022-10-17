@@ -57,13 +57,19 @@ export function Home() {
           <Radio.Group value={currentTheme}>
             <Radio.Button
               value="light"
-              onChange={() => switcher({ theme: 'light' })}
+              onChange={() => {
+                localStorage.setItem('theme', 'light')
+                switcher({ theme: 'light' })
+              }}
             >
               🌕
             </Radio.Button>
             <Radio.Button
               value="dark"
-              onChange={() => switcher({ theme: 'dark' })}
+              onChange={() => {
+                localStorage.setItem('theme', 'dark')
+                switcher({ theme: 'dark' })
+              }}
             >
               🌑
             </Radio.Button>
