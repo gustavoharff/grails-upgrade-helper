@@ -1,17 +1,5 @@
-import styled from '@emotion/styled'
 import { Button, Popover, Radio } from 'antd'
 import { useState } from 'react'
-
-const SettingsButton = styled(Button)`
-  color: initial;
-  margin-bottom: 16px;
-`
-
-const TypeGroupContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-`
 
 interface SettingsProps {
   type: 'app' | 'plugin'
@@ -28,7 +16,7 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
       visible={popoverVisibility}
       onVisibleChange={setVisibility}
       content={
-        <TypeGroupContainer>
+        <div className="flex flex-col items-start">
           <h5>Change application type</h5>
           <Radio.Group
             size="small"
@@ -37,15 +25,15 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
               onTypeChange(e.target.value)
             }}
           >
-            <TypeGroupContainer>
+            <div className="flex flex-col items-start">
               <Radio value="app">app</Radio>
               <Radio value="plugin">plugin</Radio>
-            </TypeGroupContainer>
+            </div>
           </Radio.Group>
-        </TypeGroupContainer>
+        </div>
       }
     >
-      <SettingsButton icon={<span>⚙️</span>} />
+      <Button className="mb-4" icon={<span>⚙️</span>} />
     </Popover>
   )
 }

@@ -1,9 +1,10 @@
+import { RightOutlined } from '@ant-design/icons'
+import clsx from 'clsx'
 import { File } from 'react-diff-view'
 
 import { BinaryBadge } from './binary-badge'
 import { CollapseDiffButton } from './collapse-diff-button'
 import { DiffType } from './diff-type'
-import { CollapsableClickArea, Container, FileRenameArrow } from './styles'
 
 interface DiffHeaderProps {
   readonly type: File['type']
@@ -17,17 +18,19 @@ interface DiffHeaderProps {
   readonly setIsDiffCollapsed: (value: boolean) => void
 }
 
-export function DiffHeader({
-  newPath,
-  oldPath,
-  type,
-  newVersion,
-  newProfile,
-  applicationType,
-  hasDiff,
-  isDiffCollapsed,
-  setIsDiffCollapsed
-}: DiffHeaderProps) {
+export function DiffHeader(props: DiffHeaderProps) {
+  const {
+    newPath,
+    oldPath,
+    type,
+    newVersion,
+    newProfile,
+    applicationType,
+    hasDiff,
+    isDiffCollapsed,
+    setIsDiffCollapsed
+  } = props
+
   function getPathWithouAppName(path?: string) {
     return path?.replace('myapp/', '').replace('myplugin/', '')
   }
@@ -41,7 +44,9 @@ export function DiffHeader({
       return (
         <span>
           {getPathWithouAppName(oldPath)}
-          <FileRenameArrow />
+
+          <RightOutlined className="text-[0.60rem] my-0 mx-2 text-blue-600" />
+
           {getPathWithouAppName(newPath)}
         </span>
       )
@@ -67,10 +72,12 @@ export function DiffHeader({
   }
 
   return (
-    <Container>
-      <CollapsableClickArea
+    <div className="flex justify-between items-center text-xs leading-8 text-gray-800 pt-2 pb-2 pl-3 pr-3 bg-gray-50 border-b border-b-gray-200 sticky top-0 rounded-t-sm font-mono">
+      <button
+        className={clsx('flex items-center gap-2 border-0 bg-transparent', {
+          'cursor-pointer': hasDiff
+        })}
         onClick={() => setIsDiffCollapsed(!isDiffCollapsed)}
-        style={{ cursor: hasDiff ? 'pointer' : 'default' }}
       >
         <CollapseDiffButton
           visible={hasDiff ?? false}
@@ -79,9 +86,9 @@ export function DiffHeader({
         {getPath()}
         <DiffType type={type} />
         <BinaryBadge visible={!hasDiff} />
-      </CollapsableClickArea>
+      </button>
 
       <div>{renderNewFile()}</div>
-    </Container>
+    </div>
   )
 }

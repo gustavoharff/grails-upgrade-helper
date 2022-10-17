@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
 .diff-gutter-col {
   width: 30px !important;
 }

@@ -15,7 +15,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
     "typeRoots": ["./src/@types/react-diff-view.d.ts"]
   },
   "include": ["src"],

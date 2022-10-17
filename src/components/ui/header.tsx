@@ -1,33 +1,23 @@
-import styled from '@emotion/styled'
 import { Card } from 'antd'
 
 interface HeaderProps {
   children: React.ReactNode
 }
 
-const Container = styled(Card)`
-  width: 90%;
-  border-radius: 3px;
-  border-color: #e8e8e8;
-`
+function Top({ children }: { children: React.ReactNode }) {
+  return <div className="flex justify-end">{children}</div>
+}
 
-const Top = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
+function Center({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-wrap gap-4">{children}</div>
+}
 
-const Center = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-`
-
-const Bottom = styled.div`
-  margin-top: 16px;
-`
+function Bottom({ children }: { children: React.ReactNode }) {
+  return <div className="mt-4">{children}</div>
+}
 
 export function Header({ children }: HeaderProps) {
-  return <Container>{children}</Container>
+  return <Card className="w-[90%]">{children}</Card>
 }
 
 Header.Top = Top

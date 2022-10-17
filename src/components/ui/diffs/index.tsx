@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { parseDiff } from 'react-diff-view'
 
 import { Diff } from '../diff'
-import { Container, Content, Controls } from './styles'
 import { ViewStyleOption } from './view-style-option'
 
 interface DiffsProps {
@@ -18,11 +17,11 @@ export function Diffs(props: DiffsProps) {
   const [viewType, setViewType] = useState<'split' | 'unified'>('split')
 
   return (
-    <Container>
-      <Content>
-        <Controls>
+    <div className="flex justify-center flex-col w-[90%] mt-8">
+      <div className="flex flex-col">
+        <div className="flex justify-end">
           <ViewStyleOption value={viewType} onChange={setViewType} />
-        </Controls>
+        </div>
 
         {files.map(file => (
           <Diff
@@ -34,7 +33,7 @@ export function Diffs(props: DiffsProps) {
             viewType={viewType}
           />
         ))}
-      </Content>
-    </Container>
+      </div>
+    </div>
   )
 }

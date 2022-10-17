@@ -1,15 +1,8 @@
-import styled from '@emotion/styled'
 import { useMemo } from 'react'
 import semver from 'semver'
 
 import { ProfileInput } from './profile-input'
 import { VersionInput } from './version-input'
-
-const Container = styled.div`
-  display: flex;
-  flex: 1;
-  gap: 16px;
-`
 
 interface VersionSectionProps {
   versionTitle: string
@@ -39,7 +32,7 @@ export function VersionSection(props: VersionSectionProps) {
   }, [version])
 
   return (
-    <Container>
+    <div className="flex flex-1 gap-4">
       <VersionInput
         label={versionTitle}
         selectedVersion={version}
@@ -53,6 +46,6 @@ export function VersionSection(props: VersionSectionProps) {
         onChange={onProfileChange}
         visible={profileVisible}
       />
-    </Container>
+    </div>
   )
 }

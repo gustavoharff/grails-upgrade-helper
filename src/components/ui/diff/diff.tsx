@@ -9,7 +9,6 @@ import {
 } from 'react-diff-view'
 
 import { DiffHeader } from './header'
-import { Container, HunkContent } from './styles'
 import { isDiffCollapsedByDefault } from './utils'
 
 interface DiffProps {
@@ -20,19 +19,15 @@ interface DiffProps {
   readonly type: string
 }
 
-export function Diff({
-  file,
-  newProfile,
-  newVersion,
-  type,
-  viewType
-}: DiffProps) {
+export function Diff(props: DiffProps) {
+  const { file, newProfile, newVersion, type, viewType } = props
+
   const [isDiffCollapsed, setIsDiffCollapsed] = useState(
     isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
   )
 
   return (
-    <Container>
+    <div className="w-full mt-4 border border-solid border-gray-200 rounded-sm">
       <DiffHeader
         newPath={file.newPath}
         oldPath={file.oldPath}
@@ -63,7 +58,9 @@ export function Diff({
               return hunks.map(hunk => (
                 <Fragment key={`decoration-${hunk.content}`}>
                   <Decoration>
-                    <HunkContent>{hunk.content}</HunkContent>
+                    <div className="bg-blue-50 ml-8 pl-1 text-gray-800 text-opacity-70">
+                      {hunk.content}
+                    </div>
                   </Decoration>
 
                   <Hunk key={hunk.content} hunk={hunk} tokens={tokens} />
@@ -73,6 +70,6 @@ export function Diff({
           </RDiff>
         </div>
       )}
-    </Container>
+    </div>
   )
 }

@@ -1,38 +1,25 @@
-import styled from '@emotion/styled'
 import { Select as AntdSelect } from 'antd'
-
-const Container = styled.div`
-  width: 100%;
-`
-const SelectBox = styled(AntdSelect)`
-  width: 100%;
-`
 
 interface SelectProps<T extends string> {
   title: string
   options: T[]
   value?: T | null
   onChange: (value: T) => void
-  defaultValue?: string
+  defaultValue?: T
 }
 
-export function Select<T extends string>({
-  title,
-  options,
-  value,
-  onChange,
-  defaultValue,
-  ...props
-}: SelectProps<T>) {
+export function Select<T extends string>(props: SelectProps<T>) {
+  const { title, options, value, onChange, defaultValue, ...rest } = props
+
   return (
-    <Container>
+    <div className="w-full">
       <h4 style={{ whiteSpace: 'nowrap' }}>{title}</h4>
 
-      <SelectBox
+      <AntdSelect
+        className="w-full"
         size="large"
-        {...props}
+        {...rest}
         value={value}
-        // @ts-expect-error
         onChange={onChange}
         defaultValue={defaultValue}
       >
@@ -41,7 +28,7 @@ export function Select<T extends string>({
             {option}
           </AntdSelect.Option>
         ))}
-      </SelectBox>
-    </Container>
+      </AntdSelect>
+    </div>
   )
 }

@@ -1,28 +1,16 @@
-import styled from '@emotion/styled'
-import { Button as AntButton } from 'antd'
+import { Button } from 'antd'
 
 interface ShowMeButtonProps {
   onClick: () => void
   loading?: boolean
 }
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  height: auto;
-  overflow: hidden;
-`
-
-const Button = styled(AntButton)`
-  border-radius: 3px;
-`
-
 export function ShowMeButton({ onClick, loading }: ShowMeButtonProps) {
   return (
-    <Container>
+    <div className="flex justify-center h-auto overflow-hidden">
       <Button loading={loading} onClick={onClick} type="primary" size="large">
         Show me
       </Button>
-    </Container>
+    </div>
   )
 }

@@ -80,16 +80,16 @@ export function Home() {
         </Header.Bottom>
       </Header>
 
-      <Page.Content>
-        {diff && (
+      {diff && (
+        <div className="flex justify-center w-full mt-4">
           <Diffs
             newProfile={toProfile}
             type={type}
             newVersion={toVersion}
             diff={diff}
           />
-        )}
-      </Page.Content>
+        </div>
+      )}
     </Page>
   )
 }
