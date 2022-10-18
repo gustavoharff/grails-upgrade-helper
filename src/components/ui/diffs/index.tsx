@@ -1,3 +1,4 @@
+import { Pagination } from 'antd'
 import { useState } from 'react'
 import { parseDiff } from 'react-diff-view'
 
@@ -16,14 +17,36 @@ export function Diffs(props: DiffsProps) {
 
   const [viewType, setViewType] = useState<'split' | 'unified'>('split')
 
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+
+  const offset = pageSize * (page - 1)
+
+  const paginatedItems = files.slice(offset, pageSize * page)
+
   return (
     <div className="flex justify-center flex-col w-[90%] mt-8">
       <div className="flex flex-col">
-        <div className="flex justify-end">
-          <ViewStyleOption value={viewType} onChange={setViewType} />
+        <div className="flex gap-4">
+          <Pagination
+            current={page}
+            onChange={(page, pageSize) => {
+              setPage(page)
+              setPageSize(pageSize)
+            }}
+            total={files.length}
+            pageSize={pageSize}
+            hideOnSinglePage
+          />
+
+          <ViewStyleOption
+            className="!ml-auto"
+            value={viewType}
+            onChange={setViewType}
+          />
         </div>
 
-        {files.map(file => (
+        {paginatedItems.map(file => (
           <Diff
             key={`${file.oldPath}${file.newPath}`}
             file={file}
@@ -33,6 +56,19 @@ export function Diffs(props: DiffsProps) {
             viewType={viewType}
           />
         ))}
+
+        <div className="flex justify-center mt-8">
+          <Pagination
+            current={page}
+            onChange={(page, pageSize) => {
+              setPage(page)
+              setPageSize(pageSize)
+            }}
+            total={files.length}
+            pageSize={pageSize}
+            hideOnSinglePage
+          />
+        </div>
       </div>
     </div>
   )
