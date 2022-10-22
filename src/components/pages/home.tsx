@@ -1,9 +1,11 @@
 import { Radio } from 'antd'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useThemeSwitcher } from 'react-css-theme-switcher'
 import semver from 'semver'
 
 import { useFetchDiff, useFetchVersions } from '../../hooks'
+import { getFromUrl } from '../../utils/get-from-url'
+import { updateURL } from '../../utils/update-url'
 import {
   Diffs,
   Header,
@@ -14,13 +16,17 @@ import {
 } from '../ui'
 
 export function Home() {
-  const [type, setType] = useState<'app' | 'plugin'>('app')
+  const [type, setType] = useState<'app' | 'plugin'>(getFromUrl('type', 'app'))
 
-  const [fromVersion, setFromVersion] = useState('')
-  const [fromProfile, setFromProfile] = useState<'web' | 'rest-api'>('web')
+  const [fromVersion, setFromVersion] = useState(getFromUrl('from', ''))
+  const [fromProfile, setFromProfile] = useState<'web' | 'rest-api'>(
+    getFromUrl('fromProfile', 'web')
+  )
 
-  const [toVersion, setToVersion] = useState('')
-  const [toProfile, setToProfile] = useState<'web' | 'rest-api'>('web')
+  const [toVersion, setToVersion] = useState(getFromUrl('to', ''))
+  const [toProfile, setToProfile] = useState<'web' | 'rest-api'>(
+    getFromUrl('toProfile', 'web')
+  )
 
   const { versions } = useFetchVersions()
 
@@ -49,6 +55,26 @@ export function Home() {
 
     setToVersion(version)
   }
+
+  const onSubmit = useCallback(async () => {
+    if (!fromVersion || !toVersion) return
+
+    updateURL({
+      fromVersion,
+      fromProfile,
+      toProfile,
+      toVersion,
+      type
+    })
+
+    await fetch()
+  }, [fetch, fromProfile, fromVersion, toProfile, toVersion, type])
+
+  useEffect(() => {
+    if (getFromUrl('from') && getFromUrl('to')) {
+      fetch()
+    }
+  }, []) // exec only on init
 
   return (
     <Page>
@@ -100,7 +126,7 @@ export function Home() {
         </Header.Center>
 
         <Header.Bottom>
-          <ShowMeButton onClick={fetch} loading={isFetching} />
+          <ShowMeButton onClick={onSubmit} loading={isFetching} />
         </Header.Bottom>
       </Header>
 
