@@ -13,7 +13,7 @@ function cleanVersions(data: string) {
         .replace('web', '')
         .replace('rest-api', '')
         .replace('app', '')
-        .replace('plugin', '')
+        .replaceAll('plugin', '')
         .replaceAll('-', '')
     )
 

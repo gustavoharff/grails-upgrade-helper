@@ -1,8 +1,10 @@
+import { Profile } from '../types'
+
 interface UpdateUrl {
   fromVersion: string
   toVersion: string
-  fromProfile: 'rest-api' | 'web'
-  toProfile: 'rest-api' | 'web'
+  fromProfile: Profile
+  toProfile: Profile
   type: 'app' | 'plugin'
 }
 

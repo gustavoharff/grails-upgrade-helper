@@ -1,21 +1,24 @@
 import { useMemo } from 'react'
 import semver from 'semver'
 
+import { Profile } from '../../types'
 import { ProfileInput } from './profile-input'
 import { VersionInput } from './version-input'
 
 interface VersionSectionProps {
+  type: 'app' | 'plugin'
   versionTitle: string
   versions: string[]
   version: string
   onVersionChange: (version: string) => void
   profileTitle: string
-  profile: 'web' | 'rest-api'
-  onProfileChange: (profile: 'web' | 'rest-api') => void
+  profile: Profile
+  onProfileChange: (profile: Profile) => void
 }
 
 export function VersionSection(props: VersionSectionProps) {
   const {
+    type,
     versionTitle,
     versions,
     version,
@@ -41,6 +44,7 @@ export function VersionSection(props: VersionSectionProps) {
       />
 
       <ProfileInput
+        type={type}
         label={profileTitle}
         selectedProfile={profile}
         onChange={onProfileChange}

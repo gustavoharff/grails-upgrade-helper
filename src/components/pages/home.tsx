@@ -4,6 +4,7 @@ import { useThemeSwitcher } from 'react-css-theme-switcher'
 import semver from 'semver'
 
 import { useFetchDiff, useFetchVersions } from '../../hooks'
+import { Profile } from '../../types'
 import { getFromUrl } from '../../utils/get-from-url'
 import { updateURL } from '../../utils/update-url'
 import {
@@ -19,12 +20,12 @@ export function Home() {
   const [type, setType] = useState<'app' | 'plugin'>(getFromUrl('type', 'app'))
 
   const [fromVersion, setFromVersion] = useState(getFromUrl('from', ''))
-  const [fromProfile, setFromProfile] = useState<'web' | 'rest-api'>(
+  const [fromProfile, setFromProfile] = useState<Profile>(
     getFromUrl('fromProfile', 'web')
   )
 
   const [toVersion, setToVersion] = useState(getFromUrl('to', ''))
-  const [toProfile, setToProfile] = useState<'web' | 'rest-api'>(
+  const [toProfile, setToProfile] = useState<Profile>(
     getFromUrl('toProfile', 'web')
   )
 
@@ -105,6 +106,7 @@ export function Home() {
 
         <Header.Center>
           <VersionSection
+            type={type}
             versionTitle="From Grails version"
             versions={versions}
             version={fromVersion}
@@ -115,6 +117,7 @@ export function Home() {
           />
 
           <VersionSection
+            type={type}
             versionTitle="To Grails version"
             versions={versions}
             version={toVersion}
