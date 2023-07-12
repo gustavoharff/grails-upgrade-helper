@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import axios from 'axios'
 import { useCallback, useState } from 'react'
 
@@ -38,7 +39,11 @@ export function useFetchDiff(props: UseFetchDiffProps) {
       })
 
       setDiff(response.data)
-    } catch {
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        message.error('No diff found for the selected versions')
+      }
+
       setDiff(null)
     } finally {
       setIsFetching(false)
