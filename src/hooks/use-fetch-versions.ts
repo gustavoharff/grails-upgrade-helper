@@ -8,14 +8,7 @@ function cleanVersions(data: string) {
 
   const withoutTypeAndProfile = versions
     .filter(v => v)
-    .map(v =>
-      v
-        .replace('web', '')
-        .replace('rest-api', '')
-        .replace('app', '')
-        .replaceAll('plugin', '')
-        .replaceAll('-', '')
-    )
+    .map(v => v.replace(/(-web|-rest-api|-plugin|-app)/g, ''))
 
   return Array.from(new Set(withoutTypeAndProfile))
 }

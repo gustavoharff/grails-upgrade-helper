@@ -42,7 +42,7 @@ export function Home() {
   })
 
   function onFromVersionChange(version: string) {
-    if (version && semver.lt(version, '3.0.0')) {
+    if (version && semver.valid(version) && semver.lt(version, '3.0.0')) {
       setFromProfile('web')
     }
 
@@ -50,7 +50,7 @@ export function Home() {
   }
 
   function onToVersionChange(version: string) {
-    if (version && semver.lt(version, '3.0.0')) {
+    if (version && semver.valid(version) && semver.lt(version, '3.0.0')) {
       setToProfile('web')
     }
 

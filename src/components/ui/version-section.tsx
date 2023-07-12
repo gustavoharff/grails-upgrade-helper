@@ -31,6 +31,8 @@ export function VersionSection(props: VersionSectionProps) {
   const profileVisible = useMemo(() => {
     if (!version) return false
 
+    if (semver.valid(version) && semver.lt(version, '3.0.0')) return false
+
     return semver.gte(version, '3.0.0')
   }, [version])
 
