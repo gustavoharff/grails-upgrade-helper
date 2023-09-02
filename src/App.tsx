@@ -6,6 +6,7 @@ import {
 } from 'react-css-theme-switcher'
 
 import { Home } from './components/pages'
+import { MessageProvider } from './contexts/message'
 
 const themes = {
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.23.5/antd.dark.min.css',
@@ -34,7 +35,7 @@ function AntdConfig(props: PropsWithChildren) {
           currentTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
       }}
     >
-      {props.children}
+      <MessageProvider>{props.children}</MessageProvider>
     </ConfigProvider>
   )
 }
