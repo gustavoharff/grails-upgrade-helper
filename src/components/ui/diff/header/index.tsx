@@ -1,7 +1,7 @@
 import { RightOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
 import { useThemeSwitcher } from 'react-css-theme-switcher'
-import { File } from 'react-diff-view'
+import { type File } from 'react-diff-view'
 
 import { BinaryBadge } from './binary-badge'
 import { CollapseDiffButton } from './collapse-diff-button'
@@ -90,7 +90,9 @@ export function DiffHeader(props: DiffHeaderProps) {
         className={clsx('flex items-center gap-2 border-0 bg-transparent', {
           'cursor-pointer': hasDiff
         })}
-        onClick={() => setIsDiffCollapsed(!isDiffCollapsed)}
+        onClick={() => {
+          setIsDiffCollapsed(!isDiffCollapsed)
+        }}
       >
         <CollapseDiffButton
           visible={hasDiff ?? false}

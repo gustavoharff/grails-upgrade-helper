@@ -1,4 +1,9 @@
-import { ThemeSwitcherProvider } from 'react-css-theme-switcher'
+import { ConfigProvider, theme } from 'antd'
+import { type PropsWithChildren } from 'react'
+import {
+  ThemeSwitcherProvider,
+  useThemeSwitcher
+} from 'react-css-theme-switcher'
 
 import { Home } from './components/pages'
 
@@ -19,10 +24,27 @@ if (themeStoraged && (themeStoraged === 'light' || themeStoraged === 'dark')) {
   defaultTheme = themeStoraged
 }
 
+function AntdConfig(props: PropsWithChildren) {
+  const { currentTheme } = useThemeSwitcher()
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm:
+          currentTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
+      }}
+    >
+      {props.children}
+    </ConfigProvider>
+  )
+}
+
 export function App() {
   return (
     <ThemeSwitcherProvider defaultTheme={defaultTheme} themeMap={themes}>
-      <Home />
+      <AntdConfig>
+        <Home />
+      </AntdConfig>
     </ThemeSwitcherProvider>
   )
 }

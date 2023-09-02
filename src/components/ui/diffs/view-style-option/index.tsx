@@ -11,10 +11,20 @@ export function ViewStyleOption(props: ViewStyleOptionProps) {
 
   return (
     <Radio.Group className={className} value={value}>
-      <Radio.Button value="split" onChange={() => onChange('split')}>
+      <Radio.Button
+        value="split"
+        onChange={() => {
+          onChange('split')
+        }}
+      >
         Split
       </Radio.Button>
-      <Radio.Button value="unified" onChange={() => onChange('unified')}>
+      <Radio.Button
+        value="unified"
+        onChange={() => {
+          onChange('unified')
+        }}
+      >
         Unified
       </Radio.Button>
     </Radio.Group>

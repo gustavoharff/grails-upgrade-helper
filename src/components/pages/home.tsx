@@ -4,7 +4,7 @@ import { useThemeSwitcher } from 'react-css-theme-switcher'
 import semver from 'semver'
 
 import { useFetchDiff, useFetchVersions } from '../../hooks'
-import { Profile } from '../../types'
+import { type Profile } from '../../types'
 import { getFromUrl } from '../../utils/get-from-url'
 import { updateURL } from '../../utils/update-url'
 import {

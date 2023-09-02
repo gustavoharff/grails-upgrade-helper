@@ -1,4 +1,4 @@
-import { File, HunkType } from 'react-diff-view'
+import { type File, type HunkType } from 'react-diff-view'
 
 export function isDiffCollapsedByDefault(
   type: File['type'],

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Profile } from '../../types'
+import { type Profile } from '../../types'
 import { Select } from './select'
 
 interface ProfileInputProps {

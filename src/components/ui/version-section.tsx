@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import semver from 'semver'
 
-import { Profile } from '../../types'
+import { type Profile } from '../../types'
 import { ProfileInput } from './profile-input'
 import { VersionInput } from './version-input'
 

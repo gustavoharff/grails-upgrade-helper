@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons'
-import { ButtonProps } from 'antd'
+import { type ButtonProps } from 'antd'
 import clsx from 'clsx'
 
 interface CollapseDiffButtonProps extends ButtonProps {

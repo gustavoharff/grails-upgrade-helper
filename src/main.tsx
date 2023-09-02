@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css'
+import 'antd/dist/reset.css'
 import 'react-diff-view/style/index.css'
 import './styles.css'
 

@@ -1,4 +1,4 @@
-import { Tag, TagProps } from 'antd'
+import { type TagProps, Tag } from 'antd'
 
 interface BinaryBadgeProps extends TagProps {
   visible: boolean

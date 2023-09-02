@@ -1,5 +1,5 @@
-import { Tag, TagProps } from 'antd'
-import { File } from 'react-diff-view'
+import { type TagProps, Tag } from 'antd'
+import { type File } from 'react-diff-view'
 
 interface DiffTypeProps extends TagProps {
   readonly type: File['type']

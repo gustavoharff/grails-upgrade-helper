@@ -1,4 +1,4 @@
-import { Profile } from '../types'
+import { type Profile } from '../types'
 
 interface UpdateUrl {
   fromVersion: string
@@ -27,7 +27,7 @@ export function updateURL({
 
   window.history.replaceState(
     null,
-    // @ts-expect-error
+    // @ts-expect-error ignore
     null,
     `${pageURL}${newURL}${fromProfileInURL}${toProfileInURL}${typeInURL}`
   )

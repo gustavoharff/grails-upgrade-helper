@@ -13,8 +13,8 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
     <Popover
       placement="bottomRight"
       trigger="click"
-      visible={popoverVisibility}
-      onVisibleChange={setVisibility}
+      open={popoverVisibility}
+      onOpenChange={setVisibility}
       content={
         <div className="flex flex-col items-start">
           <h5>Change application type</h5>

@@ -2,9 +2,9 @@ import clsx from 'clsx'
 import { Fragment, useState } from 'react'
 import { useThemeSwitcher } from 'react-css-theme-switcher'
 import {
+  type File,
   Decoration,
   Diff as RDiff,
-  File,
   Hunk,
   markEdits,
   tokenize
