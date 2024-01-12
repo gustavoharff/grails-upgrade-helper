@@ -1,7 +1,7 @@
 import { Radio } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
-import { useThemeSwitcher } from 'react-css-theme-switcher'
 import semver from 'semver'
+import { useDarkMode } from 'usehooks-ts'
 
 import { useFetchDiff, useFetchVersions } from '../../hooks'
 import { type Profile } from '../../types'
@@ -31,7 +31,7 @@ export function Home() {
 
   const { versions } = useFetchVersions()
 
-  const { switcher, currentTheme } = useThemeSwitcher()
+  const { toggle, isDarkMode } = useDarkMode()
 
   const { diff, fetch, isFetching } = useFetchDiff({
     type,
@@ -81,12 +81,15 @@ export function Home() {
     <Page>
       <Header>
         <Header.Top>
-          <Radio.Group value={currentTheme}>
+          <Radio.Group value={isDarkMode ? 'dark' : 'light'}>
             <Radio.Button
               value="light"
               onChange={() => {
                 localStorage.setItem('theme', 'light')
-                switcher({ theme: 'light' })
+
+                if (isDarkMode) {
+                  toggle()
+                }
               }}
             >
               🌕
@@ -95,7 +98,10 @@ export function Home() {
               value="dark"
               onChange={() => {
                 localStorage.setItem('theme', 'dark')
-                switcher({ theme: 'dark' })
+
+                if (!isDarkMode) {
+                  toggle()
+                }
               }}
             >
               🌑

@@ -17,7 +17,7 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
       onOpenChange={setVisibility}
       content={
         <div className="flex flex-col items-start">
-          <h5>Change application type</h5>
+          <h4>Change application type</h4>
           <Radio.Group
             size="small"
             value={type}

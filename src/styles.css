@@ -1,12 +1,22 @@
-@tailwind base;
 @tailwind utilities;
-@tailwind components;
+
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 svg {
   vertical-align: initial;
 }
 
-body[data-theme="light"] {
+[data-prefers-color="light"] {
+  color-scheme: light;
+
+  --background-color: #fff;
+  --border-color: #d7dbdf;
+  --text-color: rgb(0, 0, 0);
+
   --diff-background-color: #f8f9fa;
   --diff-text-color: #000;
   --diff-selection-background-color: #b3d7ff;
@@ -32,7 +42,13 @@ body[data-theme="light"] {
   --diff-gutter-text-color: #7e868c;
 }
 
-body[data-theme="dark"] {
+[data-prefers-color="dark"] {
+  color-scheme: dark;
+
+  --background-color: #151718;
+  --border-color: #3a3f42;
+  --text-color: rgba(255, 255, 255, 0.8);
+
   --diff-background-color: #151718;
   --diff-text-color: #c5c8c6;
   --diff-selection-background-color: #5a5f80;
@@ -58,10 +74,14 @@ body[data-theme="dark"] {
   --diff-gutter-text-color: #787f85;
 }
 
+.default-border {
+  @apply border-solid border-[var(--border-color)];
+}
+
 .diff-gutter-col {
   color: var(--diff-gutter-text-color);
   background-color: var(--diff-gutter-background-color);
-  width: 30px !important;
+  width: 40px !important;
 }
 
 .diff {
@@ -134,6 +154,7 @@ body[data-theme="dark"] {
 }
 
 .diff-decoration-content {
+  font-size: 13px;
   background-color: var(--diff-decoration-content-background-color);
   color: var(--diff-decoration-content-color);
 }

@@ -1,6 +1,5 @@
 import { RightOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
-import { useThemeSwitcher } from 'react-css-theme-switcher'
 import { type File } from 'react-diff-view'
 
 import { BinaryBadge } from './binary-badge'
@@ -31,8 +30,6 @@ export function DiffHeader(props: DiffHeaderProps) {
     isDiffCollapsed,
     setIsDiffCollapsed
   } = props
-
-  const { currentTheme } = useThemeSwitcher()
 
   function getPathWithouAppName(path?: string) {
     return path?.replace('myapp/', '').replace('myplugin/', '')
@@ -68,7 +65,12 @@ export function DiffHeader(props: DiffHeaderProps) {
     if (type === 'delete' || type === 'deleted') return null
 
     return (
-      <a target="_blank" href={getOriginFilePath()} rel="noreferrer">
+      <a
+        className="text-blue-600 no-underline hover:underline"
+        target="_blank"
+        href={getOriginFilePath()}
+        rel="noreferrer"
+      >
         View file
       </a>
     )
@@ -77,12 +79,13 @@ export function DiffHeader(props: DiffHeaderProps) {
   return (
     <div
       className={clsx(
-        'flex justify-between items-center text-xs leading-8 pt-2 pb-2 pl-3 pr-3 bg-gray-50 border-b border-b-gray-200 sticky top-0 rounded-t-sm font-mono',
+        'flex justify-between items-center text-xs leading-8 py-2 px-3 rounded-t-md font-mono default-border',
+        'bg-[#f8f9fa] dark:bg-[#151718]',
         {
-          'bg-[#141414]': currentTheme === 'dark',
-          '!border-[#303030]': currentTheme === 'dark',
-          'text-gray-800': currentTheme === 'light',
-          'text-gray-100': currentTheme === 'dark'
+          'rounded-md': isDiffCollapsed,
+          'rounded-t-md': !isDiffCollapsed,
+          'border-b': !isDiffCollapsed,
+          'border-b-0': isDiffCollapsed
         }
       )}
     >

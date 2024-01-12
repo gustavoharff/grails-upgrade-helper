@@ -1,38 +1,36 @@
 import { ConfigProvider, theme } from 'antd'
-import { type PropsWithChildren } from 'react'
-import {
-  ThemeSwitcherProvider,
-  useThemeSwitcher
-} from 'react-css-theme-switcher'
+import { type PropsWithChildren, useEffect } from 'react'
+import { useDarkMode } from 'usehooks-ts'
 
 import { Home } from './components/pages'
 import { MessageProvider } from './contexts/message'
 
-const themes = {
-  dark: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.23.5/antd.dark.min.css',
-  light: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.23.5/antd.min.css'
-}
-
-const systemPrefersDark = window.matchMedia(
-  '(prefers-color-scheme: dark)'
-).matches
-
-const themeStoraged = localStorage.getItem('theme')
-
-let defaultTheme = systemPrefersDark ? 'dark' : 'light'
-
-if (themeStoraged && (themeStoraged === 'light' || themeStoraged === 'dark')) {
-  defaultTheme = themeStoraged
-}
-
 function AntdConfig(props: PropsWithChildren) {
-  const { currentTheme } = useThemeSwitcher()
+  const { isDarkMode } = useDarkMode()
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+      document.documentElement.setAttribute('data-prefers-color', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+      document.documentElement.setAttribute('data-prefers-color', 'light')
+    }
+  }, [isDarkMode])
 
   return (
     <ConfigProvider
       theme={{
-        algorithm:
-          currentTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
+        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        token: {
+          colorBorder: isDarkMode ? '#3a3f42' : '#d7dbdf'
+        },
+        components: {
+          Card: {
+            colorBgContainer: isDarkMode ? '#151718' : '#f8f9fa',
+            colorBorderSecondary: isDarkMode ? '#3a3f42' : '#d7dbdf'
+          }
+        }
       }}
     >
       <MessageProvider>{props.children}</MessageProvider>
@@ -42,10 +40,8 @@ function AntdConfig(props: PropsWithChildren) {
 
 export function App() {
   return (
-    <ThemeSwitcherProvider defaultTheme={defaultTheme} themeMap={themes}>
-      <AntdConfig>
-        <Home />
-      </AntdConfig>
-    </ThemeSwitcherProvider>
+    <AntdConfig>
+      <Home />
+    </AntdConfig>
   )
 }

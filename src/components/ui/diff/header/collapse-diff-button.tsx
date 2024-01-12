@@ -1,6 +1,7 @@
 import { DownOutlined } from '@ant-design/icons'
 import { type ButtonProps } from 'antd'
-import clsx from 'clsx'
+import { zinc } from 'tailwindcss/colors'
+import { useDarkMode } from 'usehooks-ts'
 
 interface CollapseDiffButtonProps extends ButtonProps {
   readonly visible: boolean
@@ -10,18 +11,19 @@ interface CollapseDiffButtonProps extends ButtonProps {
 export function CollapseDiffButton(props: CollapseDiffButtonProps) {
   const { visible, isDiffCollapsed } = props
 
+  const { isDarkMode } = useDarkMode()
+
   if (!visible) {
     return null
   }
 
   return (
     <DownOutlined
-      className={clsx(
-        'w-[0.62rem] text-gray-800 origin-center transition-transform ease-in-out',
-        {
-          '-rotate-90': isDiffCollapsed
-        }
-      )}
+      color={isDarkMode ? zinc[100] : zinc[800]}
+      className="w-[0.62rem] origin-center transition-transform ease-in-out"
+      style={{
+        rotate: isDiffCollapsed ? '-90deg' : '0deg'
+      }}
     />
   )
 }

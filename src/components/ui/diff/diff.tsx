@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { Fragment, useState } from 'react'
-import { useThemeSwitcher } from 'react-css-theme-switcher'
 import {
   type File,
   Decoration,
@@ -28,15 +27,10 @@ export function Diff(props: DiffProps) {
     isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
   )
 
-  const { currentTheme } = useThemeSwitcher()
-
   return (
     <div
       className={clsx(
-        'w-full mt-4 border border-solid border-gray-200 rounded-sm',
-        {
-          '!border-[#303030]': currentTheme === 'dark'
-        }
+        'w-full mt-4 border border-gray-200 rounded-md default-border'
       )}
     >
       <DiffHeader
