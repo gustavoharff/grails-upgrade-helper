@@ -1,27 +1,25 @@
 import { type TagProps, Tag } from 'antd'
-import { type File } from 'react-diff-view'
+import { type FileData } from 'react-diff-view'
 
 interface DiffTypeProps extends TagProps {
-  readonly type: File['type']
+  readonly type: FileData['type']
 }
 
 export function DiffType({ type, ...props }: DiffTypeProps) {
-  const colors = {
-    new: 'blue',
+  const colors: Record<FileData['type'], string> = {
     add: 'blue',
     modify: 'green',
     delete: 'red',
     rename: 'orange',
-    deleted: 'red'
+    copy: 'purple'
   }
 
-  const labels = {
-    new: 'ADDED',
+  const labels: Record<FileData['type'], string> = {
     add: 'ADDED',
     modify: 'MODIFIED',
     delete: 'DELETED',
-    deleted: 'DELETED',
-    rename: 'RENAMED'
+    rename: 'RENAMED',
+    copy: 'COPIED'
   }
 
   return (

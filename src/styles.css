@@ -128,7 +128,7 @@ svg {
 
 .diff-code-edit {
   display: inline-block;
-  color: inherit;
+  color: inherit !important;
 }
 
 .diff-code-insert .diff-code-edit {

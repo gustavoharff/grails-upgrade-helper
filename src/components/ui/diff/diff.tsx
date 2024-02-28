@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { Fragment, useState } from 'react'
 import {
-  type File,
+  type FileData,
   Decoration,
   Diff as RDiff,
   Hunk,
@@ -13,7 +13,7 @@ import { DiffHeader } from './header'
 import { isDiffCollapsedByDefault } from './utils'
 
 interface DiffProps {
-  readonly file: File
+  readonly file: FileData
   readonly viewType: 'split' | 'unified'
   readonly newProfile: string
   readonly newVersion: string
@@ -27,6 +27,10 @@ export function Diff(props: DiffProps) {
     isDiffCollapsedByDefault(file.type, file.hunks, file.newPath)
   )
 
+  const tokens = tokenize(file.hunks, {
+    enhancers: [markEdits(file.hunks)]
+  })
+
   return (
     <div
       className={clsx(
@@ -36,7 +40,7 @@ export function Diff(props: DiffProps) {
       <DiffHeader
         newPath={file.newPath}
         oldPath={file.oldPath}
-        type={file.type === 'new' ? 'add' : file.type}
+        type={file.type}
         newProfile={newProfile}
         newVersion={newVersion}
         applicationType={type}
@@ -49,24 +53,19 @@ export function Diff(props: DiffProps) {
         <div>
           <RDiff
             viewType={viewType}
-            diffType={file.type === 'new' ? 'add' : file.type}
+            diffType={file.type}
             hunks={file.hunks}
             optimizeSelection={true}
+            tokens={tokens}
           >
             {hunks => {
-              const options = {
-                enhancers: [markEdits(hunks)]
-              }
-
-              const tokens = tokenize(hunks, options)
-
               return hunks.map(hunk => (
                 <Fragment key={`decoration-${hunk.content}`}>
                   <Decoration>
                     <div className="ml-8 pl-1">{hunk.content}</div>
                   </Decoration>
 
-                  <Hunk key={hunk.content} hunk={hunk} tokens={tokens} />
+                  <Hunk key={hunk.content} hunk={hunk} />
                 </Fragment>
               ))
             }}

@@ -1,13 +1,13 @@
 import { RightOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
-import { type File } from 'react-diff-view'
+import { type FileData } from 'react-diff-view'
 
 import { BinaryBadge } from './binary-badge'
 import { CollapseDiffButton } from './collapse-diff-button'
 import { DiffType } from './diff-type'
 
 interface DiffHeaderProps {
-  readonly type: File['type']
+  readonly type: FileData['type']
   readonly newPath?: string
   readonly oldPath?: string
   readonly hasDiff?: boolean
@@ -62,7 +62,7 @@ export function DiffHeader(props: DiffHeaderProps) {
   }
 
   function renderNewFile() {
-    if (type === 'delete' || type === 'deleted') return null
+    if (type === 'delete') return null
 
     return (
       <a
