@@ -17,16 +17,16 @@ import {
 } from '../ui'
 
 export function Home() {
-  const [type, setType] = useState<'app' | 'plugin'>(getFromUrl('type', 'app'))
+  const [type, setType] = useState<'app' | 'plugin'>(getFromUrl<'app' | 'plugin'>('type', 'app'))
 
   const [fromVersion, setFromVersion] = useState(getFromUrl('from', ''))
   const [fromProfile, setFromProfile] = useState<Profile>(
-    getFromUrl('fromProfile', 'web')
+    getFromUrl<Profile>('fromProfile', 'web')
   )
 
   const [toVersion, setToVersion] = useState(getFromUrl('to', ''))
   const [toProfile, setToProfile] = useState<Profile>(
-    getFromUrl('toProfile', 'web')
+    getFromUrl<Profile>('toProfile', 'web')
   )
 
   const { versions } = useFetchVersions()

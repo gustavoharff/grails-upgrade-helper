@@ -55,7 +55,7 @@ export function Diff(props: DiffProps) {
             viewType={viewType}
             diffType={file.type}
             hunks={file.hunks}
-            optimizeSelection={true}
+            optimizeSelection
             tokens={tokens}
           >
             {hunks => {

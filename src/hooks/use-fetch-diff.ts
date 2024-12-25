@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useCallback, useState } from 'react'
 
 import { DIFFS_REPO_URL } from '../constants'
-import { useMessage } from '../contexts/message'
+import { App } from 'antd'
 
 interface UseFetchDiffProps {
   fromVersion?: string
@@ -20,7 +20,7 @@ export function useFetchDiff(props: UseFetchDiffProps) {
   const [isFetching, setIsFetching] = useState(false)
   const [diff, setDiff] = useState<string | null>(null)
 
-  const { message } = useMessage()
+  const { message } = App.useApp()
 
   const fetch = useCallback(async () => {
     if (!fromVersion || !toVersion) {

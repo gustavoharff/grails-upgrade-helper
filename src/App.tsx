@@ -1,9 +1,8 @@
-import { ConfigProvider, theme } from 'antd'
+import { ConfigProvider, theme, App as AntdApp } from 'antd'
 import { type PropsWithChildren, useEffect } from 'react'
 import { useDarkMode } from 'usehooks-ts'
 
 import { Home } from './components/pages'
-import { MessageProvider } from './contexts/message'
 
 function AntdConfig(props: PropsWithChildren) {
   const { isDarkMode } = useDarkMode()
@@ -33,7 +32,10 @@ function AntdConfig(props: PropsWithChildren) {
         }
       }}
     >
-      <MessageProvider>{props.children}</MessageProvider>
+      <AntdApp>
+        {props.children}
+      </AntdApp>
+
     </ConfigProvider>
   )
 }
