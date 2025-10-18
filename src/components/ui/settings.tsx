@@ -1,12 +1,15 @@
-import { Button, Popover, Radio } from 'antd'
+import { Button, Checkbox, Divider, Popover, Radio } from 'antd'
 import { useState } from 'react'
 
 interface SettingsProps {
   type: 'app' | 'plugin'
   onTypeChange: (type: 'app' | 'plugin') => void
+
+  showBetaReleases: boolean
+  onShowBetaReleasesChange: (show: boolean) => void
 }
 
-export function Settings({ type, onTypeChange }: SettingsProps) {
+export function Settings({ type, onTypeChange, showBetaReleases, onShowBetaReleasesChange }: SettingsProps) {
   const [popoverVisibility, setVisibility] = useState(false)
 
   return (
@@ -30,6 +33,17 @@ export function Settings({ type, onTypeChange }: SettingsProps) {
               <Radio value="plugin">plugin</Radio>
             </div>
           </Radio.Group>
+
+          <Divider className="my-2" />
+
+          <Checkbox
+            checked={showBetaReleases}
+            onChange={e => {
+              onShowBetaReleasesChange(e.target.checked)
+            }}
+          >
+            Show release betas/candidates
+          </Checkbox>
         </div>
       }
     >

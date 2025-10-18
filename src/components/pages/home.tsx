@@ -18,6 +18,7 @@ import {
 
 export function Home() {
   const [type, setType] = useState<'app' | 'plugin'>(getFromUrl<'app' | 'plugin'>('type', 'app'))
+  const [showBetaReleases, setShowBetaReleases] = useState(getFromUrl('showBetaReleases', 'true') === 'true')
 
   const [fromVersion, setFromVersion] = useState(getFromUrl('from', ''))
   const [fromProfile, setFromProfile] = useState<Profile>(
@@ -29,7 +30,21 @@ export function Home() {
     getFromUrl<Profile>('toProfile', 'web')
   )
 
-  const { versions } = useFetchVersions()
+  const { versions } = useFetchVersions({
+    includeBetaReleases: showBetaReleases
+  })
+
+  useEffect(() => {
+    if (!fromVersion && versions.length > 0) {
+      setFromVersion(versions[1])
+      setFromProfile('rest-api')
+    }
+
+    if (!toVersion && versions.length > 0) {
+      setToVersion(versions[0])
+      setToProfile('rest-api')
+    }
+  }, [fromProfile, fromVersion, toProfile, toVersion, versions])
 
   const { toggle, isDarkMode } = useDarkMode()
 
@@ -107,7 +122,44 @@ export function Home() {
               🌑
             </Radio.Button>
           </Radio.Group>
-          <Settings type={type} onTypeChange={setType} />
+          <Settings
+            showBetaReleases={showBetaReleases}
+            onShowBetaReleasesChange={setShowBetaReleases}
+            type={type} onTypeChange={(newType) => {
+              setType(newType)
+
+              const hasFromVersionSupportForProfiles = semver.valid(fromVersion) && semver.gte(fromVersion, '3.0.0')
+              const hasToVersionSupportForProfiles = semver.valid(toVersion) && semver.gte(toVersion, '3.0.0')
+
+              if (hasFromVersionSupportForProfiles) {
+                setFromProfile('web')
+              } else {
+                if (newType === 'plugin') {
+                  if (fromProfile === 'web') setFromProfile('web-plugin')
+                  if (fromProfile === 'rest-api') setFromProfile('rest-api-plugin')
+                }
+
+                if (newType === 'app') {
+                  if (fromProfile === 'web-plugin') setFromProfile('web')
+                  if (fromProfile === 'rest-api-plugin') setFromProfile('rest-api')
+                }
+              }
+
+              if (!hasToVersionSupportForProfiles) {
+                setToProfile('web')
+              } else {
+                if (newType === 'plugin') {
+                  if (toProfile === 'web') setToProfile('web-plugin')
+                  if (toProfile === 'rest-api') setToProfile('rest-api-plugin')
+                }
+
+                if (newType === 'app') {
+                  if (toProfile === 'web-plugin') setToProfile('web')
+                  if (toProfile === 'rest-api-plugin') setToProfile('rest-api')
+                }
+              }
+            }}
+          />
         </Header.Top>
 
         <Header.Center>

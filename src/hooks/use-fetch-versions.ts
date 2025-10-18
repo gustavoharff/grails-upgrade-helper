@@ -13,7 +13,13 @@ function cleanVersions(data: string) {
   return Array.from(new Set(withoutTypeAndProfile))
 }
 
-export function useFetchVersions() {
+interface UseFetchVersionsParams {
+  includeBetaReleases: boolean
+}
+
+export function useFetchVersions(param: UseFetchVersionsParams) {
+  const { includeBetaReleases } = param
+
   const [versions, setVersions] = useState<string[]>([])
 
   async function fetch() {
@@ -29,6 +35,13 @@ export function useFetchVersions() {
   useEffect(() => {
     fetch()
   }, [])
+
+  // only versions that match 0.0.0 regex
+  const stableVersions = versions.filter(v => /^\d+\.\d+\.\d+$/.test(v))
+
+  if (!includeBetaReleases) {
+    return { versions: stableVersions }
+  }
 
   return { versions }
 }
