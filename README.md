@@ -2,4 +2,4 @@
 
 A tool for help you in your grails application upgrade.
 
-This project uses [grails-diffs](https://github.com/gustavoharff/grails-diffs) for extract and load the differences.
+This project uses [grails-diffs](https://github.com/gustavoharff/grails-diffs) to extract and load the differences.
